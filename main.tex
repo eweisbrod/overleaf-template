@@ -687,20 +687,24 @@ This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Fo
  & (1) & (2) & (3) & (4) & (5) \\
 \midrule
 \addlinespace[1ex]
-SUE & \makecell{0.176 \\ (22.251)} & \makecell{0.097 \\ (11.931)} & \makecell{0.096 \\ (12.222)} & \makecell{0.095 \\ (12.203)} & \makecell{0.165 \\ (20.427)} \\
+$SUE$ & \makecell{0.176*** \\ (22.25)} & \makecell{0.097*** \\ (11.93)} & \makecell{0.096*** \\ (12.22)} & \makecell{0.095*** \\ (12.20)} & \makecell{0.165*** \\ (20.43)} \\
 \addlinespace[0.5ex]
-SameSign &  & \makecell{0.012 \\ (23.958)} & \makecell{0.011 \\ (24.307)} & \makecell{0.011 \\ (23.846)} & \makecell{0.008 \\ (18.091)} \\
+$SameSign$ &  & \makecell{0.012*** \\ (23.96)} & \makecell{0.011*** \\ (24.31)} & \makecell{0.011*** \\ (23.85)} & \makecell{0.008*** \\ (18.09)} \\
 \addlinespace[0.5ex]
-SUE $\times$ SameSign &  & \makecell{0.128 \\ (10.324)} & \makecell{0.133 \\ (12.234)} & \makecell{0.133 \\ (12.373)} & \makecell{0.111 \\ (11.477)} \\
+$SUE$ $\times$ $SameSign$ &  & \makecell{0.128*** \\ (10.32)} & \makecell{0.133*** \\ (12.23)} & \makecell{0.133*** \\ (12.37)} & \makecell{0.111*** \\ (11.48)} \\
 \addlinespace[0.5ex]
 \midrule
 \addlinespace[1ex]
-ff12num & - & - & - & x & x \\
-fyearq & - & - & x & - & - \\
-fyearq  & - & - & - & x & x \\
-\midrule
-\addlinespace[1ex]
+Year FE &  &  & Yes & Yes & Yes \\
+\addlinespace[0.5ex]
+Industry FE &  &  &  & Yes & Yes \\
+\addlinespace[0.5ex]
+Controls &  &  &  &  & Yes \\
+\addlinespace[0.5ex]
+$R^2$ Within &  &  & 0.019 & 0.019 & 0.030 \\
+\addlinespace[0.5ex]
 Observations & 617,494 & 617,494 & 617,494 & 617,494 & 617,494 \\
+\addlinespace[0.5ex]
 $R^2$ & 0.014 & 0.019 & 0.02 & 0.021 & 0.031 \\
 \bottomrule
 \end{tabularx}
