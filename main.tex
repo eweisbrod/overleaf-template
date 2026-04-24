@@ -520,7 +520,6 @@ This table reports the frequency of SameSign by decade. Created using estout in 
 \caption{\textbf{Descriptive Statistics (R)} \label{tab:descrip-r}}
 
 % Pasted from descrip-r.tex (modelsummary/tabularray format)
-% Note: modelsummary with tinytable produces tabularray format
 \begin{tblr}[]{
 colspec={Q[]Q[]Q[]Q[]Q[]Q[]Q[]Q[]Q[]},
 hline{2}={1-9}{solid, black, 0.05em},
@@ -542,7 +541,7 @@ $\ln(MVE)$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
 \flushleft
 \begin{tabular}{@{}p{\linewidth}@{}}
 \footnotesize
-This table provides descriptive statistics for the regression sample. Variables are as defined in Appendix~\ref{vars}. Created using datasummary from the modelsummary package in R. Continuous variables are winsorized at the 1st and 99th percentiles.
+This table provides descriptive statistics for the regression sample. Variables are as defined in Appendix~\ref{vars}. Continuous variables are winsorized at the 1st and 99th percentiles. Created using datasummary from the modelsummary package in R, which produces tabularray format.
 \end{tabular}
 }
 \end{table}
@@ -560,16 +559,17 @@ This table provides descriptive statistics for the regression sample. Variables 
 \caption{\textbf{Descriptive Statistics (Python)} \label{tab:descrip-py}}
 
 % Pasted from descrip-py.tex (great_tables format)
-% great_tables produces tabular* stretched to \linewidth with booktabs
+% NOTE: great_tables auto-escapes LaTeX special characters, so math mode
+% variable names are added manually here in the Overleaf wrapper.
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrrrrr}
 \toprule
-Variable & N & Mean & SD & Min & P25 & Median & P75 & Max \\
+  & N & Mean & SD & Min & P25 & Median & P75 & Max \\
 \midrule\addlinespace[2.5pt]
-BHAR[-1,+1] & 617,494 & 0.001 & 0.098 & -0.990 & -0.041 & -0.001 & 0.039 & 6.395 \\
-SUE & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
-SameSign & 617,494 & 0.666 & 0.472 & 0.000 & 0.000 & 1.000 & 1.000 & 1.000 \\
-LOSS & 617,494 & 0.303 & 0.460 & 0.000 & 0.000 & 0.000 & 1.000 & 1.000 \\
-ln(MVE) & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
+$BHAR_{[-1,+1]}$ & 617,494 & 0.001 & 0.098 & -0.990 & -0.041 & -0.001 & 0.039 & 6.395 \\
+$SUE$ & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
+$SameSign$ & 617,494 & 0.666 & 0.472 & 0.000 & 0.000 & 1.000 & 1.000 & 1.000 \\
+$LOSS$ & 617,494 & 0.303 & 0.460 & 0.000 & 0.000 & 0.000 & 1.000 & 1.000 \\
+$\ln(MVE)$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
 \bottomrule
 \end{tabular*}
 
@@ -578,7 +578,43 @@ ln(MVE) & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
 \flushleft
 \begin{tabular}{@{}p{\linewidth}@{}}
 \footnotesize
-This table provides descriptive statistics for the regression sample. Variables are as defined in Appendix~\ref{vars}. Created using great\_tables (by Posit) in Python. Note the \texttt{tabular*} format stretched to \texttt{\textbackslash linewidth}, compared to R's \texttt{tblr} (tabularray) format.
+This table provides descriptive statistics for the regression sample. Variables are as defined in Appendix~\ref{vars}. Continuous variables are winsorized at the 1st and 99th percentiles. Created using great\_tables (by Posit) in Python. Math mode variable names are added manually in the \LaTeX\ wrapper since great\_tables auto-escapes special characters.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 6: Descriptive Statistics (Stata)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Descriptive Statistics (Stata)} \label{tab:descrip-stata}}
+
+% Pasted from descrip-stata.tex (estout format, horizontal layout)
+% Variable labels are added manually since Stata uses plain text labels.
+\begin{tabular}{l*{1}{cccccccc}}
+\toprule
+                &    N&     Mean&       SD&      Min&      P25&   Median&      P75&      Max\\
+\midrule
+$BHAR_{[-1,+1]}$&  617,494&    0.001&    0.098&   -0.990&   -0.041&   -0.001&    0.039&    6.395\\
+$SUE$           &  617,494&   -0.001&    0.067&   -0.336&   -0.009&    0.001&    0.009&    0.310\\
+$SameSign$      &  617,494&    0.666&    0.472&    0.000&    0.000&    1.000&    1.000&    1.000\\
+$LOSS$          &  617,494&    0.303&    0.460&    0.000&    0.000&    0.000&    1.000&    1.000\\
+$\ln(MVE)$      &  617,494&    5.613&    2.211&    1.248&    3.952&    5.487&    7.114&   11.219\\
+\bottomrule
+\end{tabular}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table provides descriptive statistics for the regression sample. Variables are as defined in Appendix~\ref{vars}. Continuous variables are winsorized at the 1st and 99th percentiles. Created using estout in Stata. Note the horizontal layout --- all statistics on one row per variable --- which requires all cell specifications to be in a single quoted string in the \texttt{cells()} option.
 \end{tabular}
 }
 \end{table}
