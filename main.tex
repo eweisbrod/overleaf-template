@@ -389,36 +389,39 @@ This figure presents cumulative buy-and-hold abnormal returns (BHARs) over the $
 % TABLE 1: Sample Selection
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{table}[htbp]\centering\footnotesize{
-\setstretch{1.0}
-\renewcommand{\arraystretch}{1.5}
-\caption{\textbf{Sample Selection} \label{tab:sample-selection}}
+% NOTE: This table is formatted manually for publication quality.
+% The numbers come from the sample selection tracker in script 2
+% (see sample-selection-r.tex or sample-selection-py.tex in the output folder).
+% Update the numbers below when the pipeline is re-run.
 
-% Pasted from sample-selection-r.tex (or sample-selection-py.tex — identical)
-\begin{tabular}[t]{clrr}
+\begin{table}[htbp]\centering\footnotesize\setstretch{1}{
+\caption{\textbf{Sample Selection} \label{tab:sample-selection}}
+\begin{tabular}{p{0.20in} p{4.5in} p{0.55in} p{0.65in}}
 \toprule
-Step & Description & Obs & (Diff)\\
-\midrule
-1 & Compustat fundq observations (1970 <= fyearq <= 2024, rdq not null) & 1,346,387 & \\
-2 & Less: obs in fiscal-year-change (gvkey, fyearq, fqtr) duplicates & 1,344,705 & (1,682)\\
-3 & Less: obs in (gvkey, datadate) duplicates & 1,343,627 & (1,078)\\
-4 & Less: obs without valid CCM link to CRSP permno & 995,937 & (347,690)\\
-5 & Less: obs with duplicate permno x rdq (kept most recent quarter) & 993,116 & (2,821)\\
-6 & Less: obs without CRSP SIC or in financials / utilities & 769,606 & (223,510)\\
-7 & Less: obs without valid seasonal lag (12-month gap) & 677,278 & (92,328)\\
-8 & Less: penny stocks (prccq\_lag1 <= \$1) & 637,265 & (40,013)\\
-9 & Less: obs with missing data (SUE, size, BHAR window, etc.) & 617,494 & (19,771)\\
+\underline{Step} & \underline{Description} & \multicolumn{1}{c}{\underline{Obs}} & \multicolumn{1}{c}{\underline{(Diff)}}\\
+1 & Compustat fundq quarterly observations with non-missing earnings announcement dates (rdq), fiscal years 1970--2024. & \multicolumn{1}{r}{1,346,387} &  \\
+2 & Less: Obs in fiscal-year-change duplicates (multiple rows per gvkey $\times$ fyearq $\times$ fqtr). & \multicolumn{1}{r}{1,344,705} & \multicolumn{1}{r}{(1,682)} \\
+3 & Less: Obs in gvkey $\times$ datadate duplicates. & \multicolumn{1}{r}{1,343,627} & \multicolumn{1}{r}{(1,078)} \\
+4 & Less: Obs without a valid CCM link to CRSP permno. & \multicolumn{1}{r}{995,937} & \multicolumn{1}{r}{(347,690)} \\
+5 & Less: Obs with duplicate permno $\times$ rdq (kept most recent fiscal quarter). & \multicolumn{1}{r}{993,116} & \multicolumn{1}{r}{(2,821)} \\
+6 & Less: Obs without CRSP SIC code, or in financial (SIC 60--69) or utility (SIC 49) industries. & \multicolumn{1}{r}{769,606} & \multicolumn{1}{r}{(223,510)} \\
+7 & Less: Obs without a valid seasonal lag (missing same-quarter-prior-year data or non-12-month gap). & \multicolumn{1}{r}{677,278} & \multicolumn{1}{r}{(92,328)} \\
+8 & Less: Penny stocks (prior-quarter share price $\leq$ \$1). & \multicolumn{1}{r}{637,265} & \multicolumn{1}{r}{(40,013)} \\
+9 & Less: Obs with missing data required for the regression (SUE, SameSign, market value, or incomplete $[-1,+1]$ BHAR window). & \multicolumn{1}{r}{617,494} & \multicolumn{1}{r}{(19,771)} \\
+\cline{3-4}\\[-6pt]
+ & \textbf{Regression Sample Size} & \multicolumn{1}{r}{\textbf{617,494}} & \\
 \bottomrule
 \end{tabular}
-
-\vspace{-1.5\baselineskip}
-\singlespace
-\flushleft
-\begin{tabular}{@{}p{\linewidth}@{}}
-\footnotesize
-This table outlines the sample selection procedure. The \textit{Obs} column reports the cumulative sample size remaining after each step, and the \textit{(Diff)} column reports the number of observations removed. This table was produced by the Python/R pipeline and pasted into this document.
-\end{tabular}
 }
+
+\vspace{-1.2cm}
+\singlespace
+\footnotesize
+\flushleft
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{p{\linewidth}}
+This table outlines our sample selection procedure. The \textit{Obs} column reports the cumulative sample size remaining after each step, and the \textit{(Diff)} column reports the number of observations removed at each step. Source data is downloaded from WRDS (Compustat fundq, CRSP daily, CCM link table). See the companion GitHub repositories for the full pipeline code that produces these counts.
+\end{tabular}}
 \end{table}
 
 
