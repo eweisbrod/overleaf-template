@@ -202,73 +202,72 @@ textfont = bf, labelsep=newline]{caption}
 \section{Introduction} \label{section-intro}
 \vspace{-0.1in}
 
-This document is a \LaTeX\ template for creating an academic paper formatted for potential publication in Accounting or Finance. If you have received this document as a PDF, a live version including the \LaTeX\ source code is available at: \url{https://www.overleaf.com/read/ctmwnmdcypzh}. The companion GitHub coding templates are available at \url{https://github.com/eweisbrod/project-template-r} (R only) and \url{https://github.com/eweisbrod/project-template} (Python + R + Stata).
+This document is a \LaTeX\ template for an academic paper formatted for potential publication in Accounting or Finance. It is one of several teaching resources hosted at \url{https://github.com/eweisbrod/example-project}, which is the central hub for an end-to-end empirical research workflow. The hub repository contains the JOSE paper describing the project, links to the companion code templates, and this Overleaf template. If you are reading this as a PDF, a live, editable version of this document is available at \url{https://www.overleaf.com/read/ctmwnmdcypzh}.
+
+The example analysis is an earnings announcement event study. We compute standardized unexpected earnings (SUE), defined as the seasonal change in quarterly income scaled by prior-quarter market value of equity, in the spirit of the long literature documenting the market's reaction to quarterly earnings news \citep{ball1968empirical,beaver1968information,bernard1989post}. We then test whether the three-day buy-and-hold abnormal return ($BHAR$) around the earnings announcement is amplified when the direction of the sales change agrees with the direction of the earnings change --- our $SameSign$ interaction.
 
 % --- Citation examples ---
 % The biblatex-chicago package supports several citation commands. To add a new
 % citation, find the paper on Google Scholar, click "Cite", select BibTeX, and
 % paste the entry into Bibliography.bib. The citation key (the first field
 % inside the @article{...}) is what you pass to \citet{} or \citep{}.
-%
-% Use \citet for in-text cites and \citep for parenthetical cites.
+% Use \citet{} for in-text citations and \citep{} for parenthetical citations.
 
-The example analysis uses an \textbf{earnings announcement event study}. We compute standardized unexpected earnings (SUE) as the seasonal change in quarterly income scaled by prior-quarter market value, building on the classical SUE literature \citep[e.g.,][]{ball1968,bernard1989post}. We test whether the three-day buy-and-hold abnormal return around the announcement is stronger when the direction of the sales change confirms the earnings change. \citet{ertimur2003differential} also examine how non-earnings line items affect the market response to earnings.\footnote{Footnotes are useful for tangential points or extended citations. They appear at the bottom of the page automatically.}
+The intent of this template is twofold. First, the example illustrates several common \LaTeX\ patterns used in accounting and finance papers: in-text citations such as \citet{bernard1989post}, parenthetical citations such as those in the prior paragraph, citations with a prefix such as \citep[see][p.~37]{petersen2009estimating}, and possessive forms such as \citepos{bernard1989post} finding that prices underreact to earnings news. Citations with three or more authors collapse to ``\textit{et al.}'' on the second mention --- for example, \citet{bentley2018disentangling} expands fully on its first appearance and shortens to ``Bentley et al.''~thereafter.\footnote{Two-author papers always show both authors. The behavior is controlled by \texttt{maxnames=2} in the \texttt{biblatex-chicago} options and the \texttt{\textbackslash AtEveryCitekey} hook in the preamble, which expands the first occurrence of each key.}
 
-In contrast, an earlier paper by \citet{ball1968} began the literature on price reactions to earnings news. The first time we cite a paper, the full author list appears; subsequent citations of the same paper use ``et al.'' (e.g., \citet{ball1968}). \citepos{bernard1989post} possessive form is also useful when you want to write ``Bernard and Thomas's [1989] finding that\ldots''
+Second, the supporting code templates demonstrate a reproducible empirical pipeline that satisfies modern data and code sharing requirements, including the Journal of Accounting Research (JAR) Data and Code Sharing Policy. That policy requires authors to provide (i) the code that converts raw data into the final analytical dataset and produces the reported tables, (ii) a comprehensive log file documenting the execution of that code end-to-end, and (iii) the identifiers (e.g., \texttt{gvkey}, \texttt{permno}) of the observations comprising the final sample. The pipeline produces all three artifacts automatically. The companion \texttt{run-all} master scripts (\texttt{run-all.R} for the R-only template and \texttt{run-all.py} for the polyglot template) write a date-stamped log capturing every line of executed code along with its output, save the regression-sample identifiers as both parquet and CSV, and report the modification dates and sizes of all raw and derived data files for full provenance.
 
 
-\section{Background and Hypotheses Development}\label{sec:background}
+\section{Background and Hypothesis Development}\label{sec:background}
 
-The earnings response coefficient (ERC) measures the market's reaction to an earnings surprise. A large literature documents that ERCs vary with the perceived quality and persistence of the earnings signal. We hypothesize that earnings increases accompanied by sales increases are perceived as higher quality --- reflecting genuine demand growth rather than cost-cutting or accrual manipulation --- and therefore elicit a stronger market reaction.
+\subsection{Earnings Response Coefficients and Earnings Quality}\label{sec:erc-quality}
+
+The earnings response coefficient ($ERC$) measures the market's reaction per unit of earnings surprise and varies systematically with the perceived quality and persistence of the underlying earnings signal. \citet{hayn1995information} shows that the $ERC$ is attenuated for loss firms relative to profit firms, consistent with losses being less persistent. More broadly, \citet{lawrence2018losses} document that losses convey different information about future performance, motivating loss as a standard control variable in $ERC$ regressions. \citet{petersen2009estimating} provides the standard guidance for inference in panels of firm-quarter observations: clustering standard errors by both firm and time accounts for the cross-sectional and time-series dependence inherent in such samples.
+
+\subsection{Sales Confirmation as a Quality Signal}\label{sec:sales-confirmation}
+
+We hypothesize that earnings news is more informative about firm value when the change in sales agrees with the change in earnings. The intuition is that an earnings increase accompanied by a sales increase reflects genuine demand growth and is therefore expected to be more persistent, whereas an earnings increase without sales growth may reflect cost cutting or accrual management and may be more transient. We refer to this binary co-movement signal as $SameSign$:
 
 % The hyp environment (defined in the preamble via ntheorem) auto-numbers
 % hypotheses. The label inside [] sets the display, and \label{} makes the
 % hypothesis cross-referenceable elsewhere in the paper.
 \begin{hyp}[H\ref{hyp:samesign}] \label{hyp:samesign}
-Ceteris paribus, the earnings response coefficient is larger when the earnings change and sales change move in the same direction.
+Ceteris paribus, the earnings response coefficient is larger when the seasonal change in earnings and the seasonal change in sales move in the same direction.
 \end{hyp}
 
-If we wanted to define an open-ended ``research question'' rather than a directional hypothesis, we could use the parallel \texttt{researchq} environment instead:
+If we instead wanted to pose an open-ended question rather than a directional hypothesis, we could use the parallel \texttt{researchq} environment that is also defined in the preamble:
 
 \begin{researchq}[RQ\ref{researchq:size}] \label{researchq:size}
-Does the market reaction to earnings surprises vary with firm size?
+Does the strength of the $SameSign$ interaction vary with firm size or with the time period under study?
 \end{researchq}
 
-Both environments use \texttt{ntheorem} machinery defined in the preamble. The auto-numbering means you can reorder, add, or delete them without manually renumbering --- references such as H\ref{hyp:samesign} and RQ\ref{researchq:size} update automatically.
-
-\subsection{Subsection Example}\label{sec:subsection-example}
-
-This is a subsection. Subsections are useful for organizing the background and motivation into thematic blocks (e.g., one subsection per related literature stream). The subsection numbering format is set in the preamble via \texttt{titlesec}.
-
-\subsubsection{Sub-subsection Example}\label{sec:subsubsection-example}
-
-This is a sub-subsection. They are rarely needed in published papers but can be helpful when drafting.
+Both environments are auto-numbered, so adding, removing, or reordering them updates references such as H\ref{hyp:samesign} and RQ\ref{researchq:size} automatically.
 
 
 \section{Data and Methodology}\label{section-method}
 
-\subsection{Sample Selection}
+\subsection{Sample Selection}\label{sec:sample}
 
-Our sample begins with Compustat quarterly fundamentals (fundq) for fiscal years 1970--2024 with non-missing earnings announcement dates. We merge with the CRSP/Compustat Linking Table (CCM) to obtain CRSP security identifiers, and with CRSP stocknames for SIC codes. Following standard practice in the accounting literature \citep[e.g.,][]{ball1968,bernard1989post}, we exclude financial firms (SIC 60--69) and utilities (SIC 49). Table~\ref{tab:sample-selection} details the sample selection procedure.
+Our sample is constructed from Compustat quarterly fundamentals (\texttt{comp.fundq}) for fiscal years 1970 through 2024 with non-missing earnings announcement dates ($rdq$). Firm-quarters in Compustat are linked to CRSP security identifiers using the CRSP/Compustat Merged (CCM) link table (\texttt{crsp.ccmxpf\_lnkhist}) following the standard link-type filters (\texttt{linktype} $\in$ \{LU, LC\} and \texttt{linkprim} $\in$ \{P, C\}), and time-varying SIC codes are obtained from the CRSP \texttt{stocknames\_v2} table. Consistent with prior accounting and finance research, we exclude financial firms (SIC 60--69) and utilities (SIC 49) because their distinct accounting and regulatory environments make their earnings characteristics non-comparable to those of other industries. Daily returns over the announcement window are pulled from the CRSP daily stock file (\texttt{crsp.dsf\_v2}) and benchmarked against the value-weighted index from \texttt{crsp.inddlyseriesdata}. Table~\ref{tab:sample-selection} details the sample selection procedure step by step.
 
-\subsection{Variables}
+\subsection{Variable Construction}\label{sec:variables}
 
-We define standardized unexpected earnings as:
+We define standardized unexpected earnings as the seasonal change in quarterly income before extraordinary items, scaled by the prior-quarter market value of equity:
 \begin{equation}\small \label{eq:sue}
 SUE_{i,q} = \frac{IBQ_{i,q} - IBQ_{i,q-4}}{MVE_{i,q-1}},
 \end{equation}
-where $IBQ_{i,q}$ is quarterly income before extraordinary items for firm $i$ in quarter $q$, and $MVE_{i,q-1}$ is market value of equity at the end of the prior quarter. Using dollar earnings scaled by dollar market value avoids per-share split-adjustment complications. See Appendix~\ref{vars} for formal variable definitions of all variables used in this study.
+where $IBQ_{i,q}$ is firm $i$'s Compustat quarterly income before extraordinary items in fiscal quarter $q$ and $MVE_{i,q-1}$ is its end-of-prior-quarter market value of equity (computed as $cshoq \times prccq$). Scaling by dollar market value avoids the per-share split-adjustment complications that arise when constructing $SUE$ from earnings per share \citep[see][for the per-share formulation]{bernard1989post}. The interaction variable $SameSign_{i,q}$ is an indicator equal to one when $\textit{sign}(IBQ_{i,q} - IBQ_{i,q-4}) = \textit{sign}(SALEQ_{i,q} - SALEQ_{i,q-4})$ and zero otherwise. Formal definitions of all variables, including the controls, are provided in Appendix~\ref{vars}.
 
-\subsection{Regression Model}
+\subsection{Regression Specification}\label{sec:regression}
 
-We estimate the following regression to test H\ref{hyp:samesign}:
+We estimate variants of the following regression to test H\ref{hyp:samesign}:
 \begin{equation}\small \label{eq:regression}
 \begin{aligned}
     BHAR_{i,q} = {} & \alpha + \beta_1 SUE_{i,q} + \beta_2 SameSign_{i,q} + \beta_3 SUE_{i,q} \times SameSign_{i,q} \\
     & + A \times Controls_{i,q} + B \times FE + \epsilon_{i,q},
 \end{aligned}
 \end{equation}
-where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement, $SameSign_{i,q}$ equals one if the earnings change and sales change have the same sign, and $Controls$ includes $\ln(MVE)^{std}$ and $LOSS$ (each interacted with $SUE$). We cluster standard errors by firm (permno) and fiscal year-quarter, following \citet{petersen2009estimating}.
+where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement (computed as the cumulative product of $1+ret$ minus the cumulative product of $1+vwretd$), $SameSign_{i,q}$ is defined above, and $Controls$ comprises $\ln(MVE)^{std}$ and $LOSS$ each interacted with $SUE$. The continuous control $\ln(MVE)$ is standardized to mean zero and unit standard deviation so that the $SUE$ main effect is interpretable as the $ERC$ for a firm of average size; binary controls are not standardized. The fixed effects ($FE$) are added cumulatively across columns: column 3 adds fiscal-year-quarter fixed effects, column 4 adds Fama-French 12 industry fixed effects, and column 5 adds the controls and their interactions. Standard errors are clustered by firm and by fiscal year-quarter following \citet{petersen2009estimating}.
 
 
 \section{Results}\label{section-results}
@@ -388,9 +387,8 @@ This figure presents the frequency of SameSign (quarters where the earnings chan
 \caption{\textbf{Time Series}}%
 \label{fig:yearly}%
 \centering
-\subfloat[SameSign Frequency by Size Quintile Over Time]{{\includegraphics[scale=0.6]{figures/size_year.pdf} }}%
-\qquad
-\subfloat[Year-by-Year ERC with Confidence Bands]{{\includegraphics[scale=0.6]{figures/erc_year.pdf} }}%
+\subfloat[SameSign Frequency by Size Quintile Over Time]{\includegraphics[width=0.48\textwidth]{figures/size_year.pdf}}\hfill
+\subfloat[Year-by-Year ERC with Confidence Bands]{\includegraphics[width=0.48\textwidth]{figures/erc_year.pdf}}%
 \footnotesize
 \begin{minipage}{15.5cm}
 \begin{singlespace}
