@@ -202,25 +202,54 @@ textfont = bf, labelsep=newline]{caption}
 \section{Introduction} \label{section-intro}
 \vspace{-0.1in}
 
-This document is a \LaTeX\ template for creating an academic paper formatted for potential publication in Accounting or Finance. It accompanies the coding templates at \url{https://github.com/eweisbrod/project-template-r} and \url{https://github.com/eweisbrod/project-template}, which demonstrate a complete empirical pipeline: downloading data from WRDS, merging databases, creating variables, producing figures, and outputting formatted tables.
+This document is a \LaTeX\ template for creating an academic paper formatted for potential publication in Accounting or Finance. If you have received this document as a PDF, a live version including the \LaTeX\ source code is available at: \url{https://www.overleaf.com/read/ctmwnmdcypzh}. The companion GitHub coding templates are available at \url{https://github.com/eweisbrod/project-template-r} (R only) and \url{https://github.com/eweisbrod/project-template} (Python + R + Stata).
 
-The example analysis uses an \textbf{earnings announcement event study}. We compute standardized unexpected earnings (SUE) as the seasonal change in quarterly income scaled by prior-quarter market value, and test whether the three-day buy-and-hold abnormal return (BHAR) around the announcement is stronger when the direction of the sales change confirms the earnings change (our ``SameSign'' interaction variable).
+% --- Citation examples ---
+% The biblatex-chicago package supports several citation commands. To add a new
+% citation, find the paper on Google Scholar, click "Cite", select BibTeX, and
+% paste the entry into Bibliography.bib. The citation key (the first field
+% inside the @article{...}) is what you pass to \citet{} or \citep{}.
+%
+% Use \citet for in-text cites and \citep for parenthetical cites.
+
+The example analysis uses an \textbf{earnings announcement event study}. We compute standardized unexpected earnings (SUE) as the seasonal change in quarterly income scaled by prior-quarter market value, building on the classical SUE literature \citep[e.g.,][]{ball1968,bernard1989post}. We test whether the three-day buy-and-hold abnormal return around the announcement is stronger when the direction of the sales change confirms the earnings change. \citet{ertimur2003differential} also examine how non-earnings line items affect the market response to earnings.\footnote{Footnotes are useful for tangential points or extended citations. They appear at the bottom of the page automatically.}
+
+In contrast, an earlier paper by \citet{ball1968} began the literature on price reactions to earnings news. The first time we cite a paper, the full author list appears; subsequent citations of the same paper use ``et al.'' (e.g., \citet{ball1968}). \citepos{bernard1989post} possessive form is also useful when you want to write ``Bernard and Thomas's [1989] finding that\ldots''
 
 
-\section{Background and Hypothesis}\label{sec:background}
+\section{Background and Hypotheses Development}\label{sec:background}
 
 The earnings response coefficient (ERC) measures the market's reaction to an earnings surprise. A large literature documents that ERCs vary with the perceived quality and persistence of the earnings signal. We hypothesize that earnings increases accompanied by sales increases are perceived as higher quality --- reflecting genuine demand growth rather than cost-cutting or accrual manipulation --- and therefore elicit a stronger market reaction.
 
+% The hyp environment (defined in the preamble via ntheorem) auto-numbers
+% hypotheses. The label inside [] sets the display, and \label{} makes the
+% hypothesis cross-referenceable elsewhere in the paper.
 \begin{hyp}[H\ref{hyp:samesign}] \label{hyp:samesign}
 Ceteris paribus, the earnings response coefficient is larger when the earnings change and sales change move in the same direction.
 \end{hyp}
+
+If we wanted to define an open-ended ``research question'' rather than a directional hypothesis, we could use the parallel \texttt{researchq} environment instead:
+
+\begin{researchq}[RQ\ref{researchq:size}] \label{researchq:size}
+Does the market reaction to earnings surprises vary with firm size?
+\end{researchq}
+
+Both environments use \texttt{ntheorem} machinery defined in the preamble. The auto-numbering means you can reorder, add, or delete them without manually renumbering --- references such as H\ref{hyp:samesign} and RQ\ref{researchq:size} update automatically.
+
+\subsection{Subsection Example}\label{sec:subsection-example}
+
+This is a subsection. Subsections are useful for organizing the background and motivation into thematic blocks (e.g., one subsection per related literature stream). The subsection numbering format is set in the preamble via \texttt{titlesec}.
+
+\subsubsection{Sub-subsection Example}\label{sec:subsubsection-example}
+
+This is a sub-subsection. They are rarely needed in published papers but can be helpful when drafting.
 
 
 \section{Data and Methodology}\label{section-method}
 
 \subsection{Sample Selection}
 
-Our sample begins with Compustat quarterly fundamentals (fundq) for fiscal years 1970--2024 with non-missing earnings announcement dates. We merge with the CRSP/Compustat Linking Table (CCM) to obtain CRSP security identifiers, and with CRSP stocknames for SIC codes. We exclude financial firms (SIC 60--69) and utilities (SIC 49). Table~\ref{tab:sample-selection} details the sample selection procedure.
+Our sample begins with Compustat quarterly fundamentals (fundq) for fiscal years 1970--2024 with non-missing earnings announcement dates. We merge with the CRSP/Compustat Linking Table (CCM) to obtain CRSP security identifiers, and with CRSP stocknames for SIC codes. Following standard practice in the accounting literature \citep[e.g.,][]{ball1968,bernard1989post}, we exclude financial firms (SIC 60--69) and utilities (SIC 49). Table~\ref{tab:sample-selection} details the sample selection procedure.
 
 \subsection{Variables}
 
@@ -228,7 +257,7 @@ We define standardized unexpected earnings as:
 \begin{equation}\small \label{eq:sue}
 SUE_{i,q} = \frac{IBQ_{i,q} - IBQ_{i,q-4}}{MVE_{i,q-1}},
 \end{equation}
-where $IBQ_{i,q}$ is quarterly income before extraordinary items for firm $i$ in quarter $q$, and $MVE_{i,q-1}$ is market value of equity at the end of the prior quarter. Using dollar earnings scaled by dollar market value avoids per-share split-adjustment complications. See Appendix~\ref{vars} for formal variable definitions.
+where $IBQ_{i,q}$ is quarterly income before extraordinary items for firm $i$ in quarter $q$, and $MVE_{i,q-1}$ is market value of equity at the end of the prior quarter. Using dollar earnings scaled by dollar market value avoids per-share split-adjustment complications. See Appendix~\ref{vars} for formal variable definitions of all variables used in this study.
 
 \subsection{Regression Model}
 
@@ -239,20 +268,26 @@ We estimate the following regression to test H\ref{hyp:samesign}:
     & + A \times Controls_{i,q} + B \times FE + \epsilon_{i,q},
 \end{aligned}
 \end{equation}
-where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement, $SameSign_{i,q}$ equals one if the earnings change and sales change have the same sign, and $Controls$ includes $\ln(MVE)^{std}$ and $LOSS$ (each interacted with $SUE$). We cluster standard errors by firm (permno) and fiscal year-quarter.
+where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement, $SameSign_{i,q}$ equals one if the earnings change and sales change have the same sign, and $Controls$ includes $\ln(MVE)^{std}$ and $LOSS$ (each interacted with $SUE$). We cluster standard errors by firm (permno) and fiscal year-quarter, following \citet{petersen2009estimating}.
 
 
 \section{Results}\label{section-results}
 
+% Bulleted lists are rare in published papers but useful as a roadmap when
+% drafting or for teaching templates. We use one here to enumerate the tables.
+The tables and figures included in this template are:
 \begin{itemize}
-    \item Table \ref{tab:sample-selection} presents the sample selection procedure.
-    \item Table \ref{tab:freq-r} presents the frequency of SameSign by decade (R version). Table \ref{tab:freq-stata} presents the Stata version.
-    \item Table \ref{tab:descrip-r} provides descriptive statistics (R version). Table \ref{tab:descrip-py} provides the Python version.
-    \item Table \ref{tab:corr-r} provides a correlation matrix (R version).
-    \item Table \ref{tab:regress-r} presents the regression results (R version). Table \ref{tab:regress-py} presents the Python version. Table \ref{tab:regress-stata} presents the Stata version.
+    \item Figure~\ref{fig:ff12} plots SameSign frequency by Fama-French 12 industry.
+    \item Figure~\ref{fig:yearly} plots SameSign by size quintile and the year-by-year ERC.
+    \item Figure~\ref{fig:car} plots cumulative abnormal returns over the event window.
+    \item Table~\ref{tab:sample-selection} presents the sample selection procedure.
+    \item Tables~\ref{tab:freq-r} and~\ref{tab:freq-stata} present the frequency of SameSign by decade (R and Stata versions).
+    \item Tables~\ref{tab:descrip-r}, \ref{tab:descrip-py}, and~\ref{tab:descrip-stata} provide descriptive statistics (R, Python, and Stata versions).
+    \item Tables~\ref{tab:corr-r}, \ref{tab:corr-py}, and~\ref{tab:corr-stata} provide a correlation matrix (R, Python, and Stata versions).
+    \item Tables~\ref{tab:regress-r}, \ref{tab:regress-py}, and~\ref{tab:regress-stata} present the regression results (R, Python, and Stata versions).
 \end{itemize}
 
-Table~\ref{tab:regress-r} presents the results from estimating Eq.~(\ref{eq:regression}). The significantly positive coefficient on $SUE \times SameSign$ across all specifications provides evidence consistent with H\ref{hyp:samesign}: the market reacts more strongly to earnings surprises when sales move in the same direction.
+Tables~\ref{tab:regress-r}, \ref{tab:regress-py}, and~\ref{tab:regress-stata} present the results from estimating Eq.~(\ref{eq:regression}). The significantly positive coefficient on $SUE \times SameSign$ across all specifications provides evidence consistent with H\ref{hyp:samesign}: the market reacts more strongly to earnings surprises when sales move in the same direction. Note that all three software outputs produce equivalent point estimates and standard errors --- the differences are purely in \LaTeX\ formatting.
 
 
 \section{Conclusion}\label{section-conclusion}
@@ -623,7 +658,7 @@ This table provides descriptive statistics for the regression sample. Variables 
 \clearpage\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TABLE 6: Correlation Matrix (R)
+% TABLE 7: Correlation Matrix (R)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[htbp]\centering\footnotesize{
@@ -662,7 +697,80 @@ This table provides Pearson (Spearman) correlations above (below) the diagonal. 
 \clearpage\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TABLE 7: Regression (R)
+% TABLE 8: Correlation Matrix (Python)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Correlation Matrix (Python)} \label{tab:corr-py}}
+
+% Pasted from corrtable-py.tex (great_tables format, Pearson only)
+% Math mode variable names added manually (great_tables auto-escapes).
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr}
+\toprule
+  & $BHAR_{[-1,+1]}$ & $SUE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+\midrule\addlinespace[2.5pt]
+$BHAR_{[-1,+1]}$ & 1.000 & 0.120 & 0.056 & -0.110 & -0.008 \\
+$SUE$ & 0.120 & 1.000 & 0.012 & -0.248 & 0.021 \\
+$SameSign$ & 0.056 & 0.012 & 1.000 & -0.188 & 0.040 \\
+$LOSS$ & -0.110 & -0.248 & -0.188 & 1.000 & -0.203 \\
+$\ln(MVE)$ & -0.008 & 0.021 & 0.040 & -0.203 & 1.000 \\
+\bottomrule
+\end{tabular*}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table provides Pearson correlations. Variables are as defined in Appendix~\ref{vars}. Created using great\_tables (by Posit) in Python. Note that pandas/great\_tables produces only one correlation type (Pearson) by default, while R's modelsummary supports the Pearson-above/Spearman-below combined display natively.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 9: Correlation Matrix (Stata)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Correlation Matrix (Stata)} \label{tab:corr-stata}}
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+
+% Pasted from corrtable-stata.tex (estout format, lower-triangle only)
+% Variable labels added manually (Stata uses raw variable names by default).
+\begin{tabular}{l*{5}{c}}
+\toprule
+          & $BHAR_{[-1,+1]}$ & $SUE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+\midrule
+$BHAR_{[-1,+1]}$ & 1.000 &       &       &       &       \\
+$SUE$            & 0.120 & 1.000 &       &       &       \\
+$SameSign$       & 0.056 & 0.012 & 1.000 &       &       \\
+$LOSS$           & -0.110 & -0.248 & -0.188 & 1.000 &       \\
+$\ln(MVE)$       & -0.008 & 0.021 & 0.040 & -0.203 & 1.000 \\
+\bottomrule
+\end{tabular}
+
+\vspace{-1.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table provides Pearson correlations (lower triangle only). Variables are as defined in Appendix~\ref{vars}. Created using estpost correlate + esttab in Stata.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 10: Regression (R)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[htbp]\centering\footnotesize{
@@ -709,7 +817,7 @@ This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Fo
 \clearpage\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TABLE 8: Regression (Python)
+% TABLE 11: Regression (Python)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[htbp]\centering\footnotesize{
@@ -762,7 +870,7 @@ This table reports the same regression as Tables~\ref{tab:regress-r} and~\ref{ta
 \clearpage\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TABLE 9: Regression (Stata)
+% TABLE 12: Regression (Stata)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[htbp]\centering\footnotesize{
