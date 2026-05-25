@@ -156,16 +156,20 @@ textfont = bf, labelsep=newline]{caption}
 
 \begin{document}
 
-\makeatletter
-\patchcmd{\NAT@test}{\else \NAT@nm}{\else \NAT@nmfmt{\NAT@nm}}{}{}
-\DeclareRobustCommand\citepos
-  {\begingroup
-   \let\NAT@nmfmt\NAT@posfmt
-   \NAT@swafalse\let\NAT@ctype\z@\NAT@partrue
-   \@ifstar{\NAT@fulltrue\NAT@citetp}{\NAT@fullfalse\NAT@citetp}}
-\let\NAT@orig@nmfmt\NAT@nmfmt
-\def\NAT@posfmt#1{\NAT@orig@nmfmt{#1's}}
-\makeatother
+% Possessive citation for biblatex-chicago: \citepos{key} renders as
+% "Author's (Year)" -- e.g. \citepos{bernard1989post} -> "Bernard and
+% Thomas's (1989)". The older definition that lived here called
+% natbib internals (\NAT@test, \NAT@nmfmt, ...) which do not exist
+% under biblatex-chicago and were the source of four "Undefined
+% control sequence" errors at compile time.
+\DeclareCiteCommand{\citepos}
+  {\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \printtext[bibhyperref]{%
+     \printnames{labelname}'s\addspace
+     \mkbibparens{\printfield{year}\printfield{extradate}}}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
 
 \setlength{\abovedisplayskip}{4pt}
 \setlength{\belowdisplayskip}{4pt}
