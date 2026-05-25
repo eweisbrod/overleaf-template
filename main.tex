@@ -276,7 +276,7 @@ We estimate variants of the following regression to test H\ref{hyp:samesign}:
     & + A \times Controls_{i,q} + B \times FE + \epsilon_{i,q},
 \end{aligned}
 \end{equation}
-where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement (computed as the cumulative product of $1+ret$ minus the cumulative product of $1+vwretd$), $SameSign_{i,q}$ is defined above, and $Controls$ comprises $SIZE^{std}$ and $LOSS$ each interacted with $UE$. The continuous control $SIZE$ is standardized to mean zero and unit standard deviation so that the $UE$ main effect is interpretable as the $ERC$ for a firm of average size; binary controls are not standardized. The fixed effects ($FE$) are added cumulatively across columns: column 3 adds fiscal-year-quarter fixed effects, column 4 adds Fama-French 12 industry fixed effects, and column 5 adds the controls and their interactions. Standard errors are clustered by firm and by fiscal year-quarter following \citet{petersen2009estimating}.
+where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement (computed as the cumulative product of $1+ret$ minus the cumulative product of $1+vwretd$), $SameSign_{i,q}$ is defined above, and $Controls$ comprises $SIZE$ and $LOSS$ each interacted with $UE$. The continuous control $SIZE$ is standardized to mean zero and unit standard deviation so that the $UE$ main effect is interpretable as the $ERC$ for a firm of average size; binary controls are not standardized. The fixed effects ($FE$) are added cumulatively across columns: column 3 adds fiscal-year-quarter fixed effects, column 4 adds Fama-French 12 industry fixed effects, and column 5 adds the controls and their interactions. Standard errors are clustered by firm and by fiscal year-quarter following \citet{petersen2009estimating}.
 
 
 \section{Results}\label{section-results}
@@ -286,7 +286,8 @@ where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ tradin
 The tables and figures included in this template are:
 \begin{itemize}
     \item Figure~\ref{fig:ff12} plots SameSign frequency by Fama-French 12 industry.
-    \item Figure~\ref{fig:yearly} plots SameSign by size quintile and the year-by-year ERC using a side-by-side (horizontal) two-panel layout. Figure~\ref{fig:yearly-vertical} shows the same content in a stacked (vertical) two-panel layout so users can compare the two layout patterns and pick whichever fits their plots.
+    \item Figure~\ref{fig:yearly} plots SameSign by size quintile and the year-by-year ERC using a side-by-side (horizontal) two-panel layout. 
+    \item Figure~\ref{fig:yearly-vertical} shows the same content as Figure~\ref{fig:yearly} in a stacked (vertical) two-panel layout so users can compare the two layout patterns and pick whichever fits their plots.
     \item Figure~\ref{fig:car} plots cumulative abnormal returns over the event window.
     \item Table~\ref{tab:sample-selection} presents the sample selection procedure.
     \item Tables~\ref{tab:freq-r} and~\ref{tab:freq-stata} present the frequency of SameSign by decade (R and Stata versions).
@@ -351,7 +352,7 @@ $SameSign$ & An indicator variable equal to one if the sign of the seasonal earn
 
 $LOSS$ & An indicator variable equal to one if quarterly income before extraordinary items ($IBQ$) is negative, and zero otherwise. \\
 
-$SIZE$ & Natural logarithm of market value of equity ($CSHOQ \times PRCCQ$). Winsorized at the 1st and 99th percentiles. In the regression, this variable is standardized to mean zero and unit standard deviation ($SIZE^{std}$). \\
+$SIZE$ & Natural logarithm of market value of equity ($CSHOQ \times PRCCQ$). Winsorized at the 1st and 99th percentiles. In the regression, this variable is standardized to mean zero and unit standard deviation. \\
 
 \bottomrule
 \end{tabular}
@@ -859,7 +860,7 @@ $R^2$ Within &  &  & 0.019 & 0.019 & 0.030 \\
 \flushleft
 \begin{tabular}{@{}p{\linewidth}@{}}
 \footnotesize
-This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Formal variable definitions are provided in Appendix~\ref{vars}. Controls include $SIZE^{std}$ and $LOSS$, each interacted with $UE$. ***, **, * indicate (two-tailed) significance at the 1\%, 5\%, and 10\% levels, respectively. $t$-statistics in parentheses. Standard errors are clustered by firm and fiscal year-quarter. Created using fixest + modelsummary in R.
+This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Formal variable definitions are provided in Appendix~\ref{vars}. Controls include $SIZE$ and $LOSS$, each interacted with $UE$. ***, **, * indicate (two-tailed) significance at the 1\%, 5\%, and 10\% levels, respectively. $t$-statistics in parentheses. Standard errors are clustered by firm and fiscal year-quarter. Created using fixest + modelsummary in R.
 \end{tabular}
 }
 \end{table}
