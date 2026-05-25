@@ -276,7 +276,7 @@ We estimate variants of the following regression to test H\ref{hyp:samesign}:
     & + A \times Controls_{i,q} + B \times FE + \epsilon_{i,q},
 \end{aligned}
 \end{equation}
-where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement (computed as the cumulative product of $1+ret$ minus the cumulative product of $1+vwretd$), $SameSign_{i,q}$ is defined above, and $Controls$ comprises $\ln(MVE)^{std}$ and $LOSS$ each interacted with $UE$. The continuous control $\ln(MVE)$ is standardized to mean zero and unit standard deviation so that the $UE$ main effect is interpretable as the $ERC$ for a firm of average size; binary controls are not standardized. The fixed effects ($FE$) are added cumulatively across columns: column 3 adds fiscal-year-quarter fixed effects, column 4 adds Fama-French 12 industry fixed effects, and column 5 adds the controls and their interactions. Standard errors are clustered by firm and by fiscal year-quarter following \citet{petersen2009estimating}.
+where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement (computed as the cumulative product of $1+ret$ minus the cumulative product of $1+vwretd$), $SameSign_{i,q}$ is defined above, and $Controls$ comprises $SIZE^{std}$ and $LOSS$ each interacted with $UE$. The continuous control $SIZE$ is standardized to mean zero and unit standard deviation so that the $UE$ main effect is interpretable as the $ERC$ for a firm of average size; binary controls are not standardized. The fixed effects ($FE$) are added cumulatively across columns: column 3 adds fiscal-year-quarter fixed effects, column 4 adds Fama-French 12 industry fixed effects, and column 5 adds the controls and their interactions. Standard errors are clustered by firm and by fiscal year-quarter following \citet{petersen2009estimating}.
 
 
 \section{Results}\label{section-results}
@@ -351,7 +351,7 @@ $SameSign$ & An indicator variable equal to one if the sign of the seasonal earn
 
 $LOSS$ & An indicator variable equal to one if quarterly income before extraordinary items ($IBQ$) is negative, and zero otherwise. \\
 
-$\ln(MVE)$ & Natural logarithm of market value of equity ($CSHOQ \times PRCCQ$). Winsorized at the 1st and 99th percentiles. In the regression, this variable is standardized to mean zero and unit standard deviation ($\ln(MVE)^{std}$). \\
+$SIZE$ & Natural logarithm of market value of equity ($CSHOQ \times PRCCQ$). Winsorized at the 1st and 99th percentiles. In the regression, this variable is standardized to mean zero and unit standard deviation ($SIZE^{std}$). \\
 
 \bottomrule
 \end{tabular}
@@ -619,7 +619,7 @@ $BHAR_{[-1,+1]}$ & 617,494 & 0.001 & 0.098 & -0.990 & -0.041 & -0.001 & 0.039 & 
 $UE$ & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
 $SameSign$ & 617,494 & 0.666 & 0.472 & 0.000 & 0.000 & 1.000 & 1.000 & 1.000 \\
 $LOSS$ & 617,494 & 0.303 & 0.460 & 0.000 & 0.000 & 0.000 & 1.000 & 1.000 \\
-$\ln(MVE)$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
+$SIZE$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
 \end{tblr}
 
 \vspace{-1.5\baselineskip}
@@ -655,7 +655,7 @@ $BHAR_{[-1,+1]}$ & 617,494 & 0.001 & 0.098 & -0.990 & -0.041 & -0.001 & 0.039 & 
 $UE$ & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
 $SameSign$ & 617,494 & 0.666 & 0.472 & 0.000 & 0.000 & 1.000 & 1.000 & 1.000 \\
 $LOSS$ & 617,494 & 0.303 & 0.460 & 0.000 & 0.000 & 0.000 & 1.000 & 1.000 \\
-$\ln(MVE)$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
+$SIZE$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
 \bottomrule
 \end{tabular*}
 
@@ -691,7 +691,7 @@ $BHAR_{[-1,+1]}$&  617,494&    0.001&    0.098&   -0.990&   -0.041&   -0.001&   
 $UE$           &  617,494&   -0.001&    0.067&   -0.336&   -0.009&    0.001&    0.009&    0.310\\
 $SameSign$      &  617,494&    0.666&    0.472&    0.000&    0.000&    1.000&    1.000&    1.000\\
 $LOSS$          &  617,494&    0.303&    0.460&    0.000&    0.000&    0.000&    1.000&    1.000\\
-$\ln(MVE)$      &  617,494&    5.613&    2.211&    1.248&    3.952&    5.487&    7.114&   11.219\\
+$SIZE$      &  617,494&    5.613&    2.211&    1.248&    3.952&    5.487&    7.114&   11.219\\
 \bottomrule
 \end{tabular}
 
@@ -726,12 +726,12 @@ hline{7}={1-6}{solid, black, 0.1em},
 column{1}={}{halign=l},
 column{2-6}={}{halign=r},
 }
-& $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+& $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $SIZE$ \\
 $BHAR_{[-1,+1]}$ & 1 & .12 & .06 & -.11 & -.01 \\
 $UE$ & .19 & 1 & .01 & -.25 & .02 \\
 $SameSign$ & .07 & .22 & 1 & -.19 & .04 \\
 $LOSS$ & -.13 & -.34 & -.19 & 1 & -.20 \\
-$\ln(MVE)$ & .03 & .01 & .04 & -.20 & 1 \\
+$SIZE$ & .03 & .01 & .04 & -.20 & 1 \\
 \end{tblr}
 
 \vspace{-1.5\baselineskip}
@@ -760,13 +760,13 @@ This table provides Pearson (Spearman) correlations above (below) the diagonal. 
 % Math mode variable names added manually (great_tables auto-escapes).
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr}
 \toprule
-  & $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+  & $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $SIZE$ \\
 \midrule\addlinespace[2.5pt]
 $BHAR_{[-1,+1]}$ & 1.000 & 0.120 & 0.056 & -0.110 & -0.008 \\
 $UE$ & 0.120 & 1.000 & 0.012 & -0.248 & 0.021 \\
 $SameSign$ & 0.056 & 0.012 & 1.000 & -0.188 & 0.040 \\
 $LOSS$ & -0.110 & -0.248 & -0.188 & 1.000 & -0.203 \\
-$\ln(MVE)$ & -0.008 & 0.021 & 0.040 & -0.203 & 1.000 \\
+$SIZE$ & -0.008 & 0.021 & 0.040 & -0.203 & 1.000 \\
 \bottomrule
 \end{tabular*}
 
@@ -797,13 +797,13 @@ This table provides Pearson correlations. Variables are as defined in Appendix~\
 % Variable labels added manually (Stata uses raw variable names by default).
 \begin{tabular}{l*{5}{c}}
 \toprule
-          & $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+          & $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $SIZE$ \\
 \midrule
 $BHAR_{[-1,+1]}$ & 1.000 &       &       &       &       \\
 $UE$            & 0.120 & 1.000 &       &       &       \\
 $SameSign$       & 0.056 & 0.012 & 1.000 &       &       \\
 $LOSS$           & -0.110 & -0.248 & -0.188 & 1.000 &       \\
-$\ln(MVE)$       & -0.008 & 0.021 & 0.040 & -0.203 & 1.000 \\
+$SIZE$       & -0.008 & 0.021 & 0.040 & -0.203 & 1.000 \\
 \bottomrule
 \end{tabular}
 
@@ -859,7 +859,7 @@ $R^2$ Within &  &  & 0.019 & 0.019 & 0.030 \\
 \flushleft
 \begin{tabular}{@{}p{\linewidth}@{}}
 \footnotesize
-This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Formal variable definitions are provided in Appendix~\ref{vars}. Controls include $\ln(MVE)^{std}$ and $LOSS$, each interacted with $UE$. ***, **, * indicate (two-tailed) significance at the 1\%, 5\%, and 10\% levels, respectively. $t$-statistics in parentheses. Standard errors are clustered by firm and fiscal year-quarter. Created using fixest + modelsummary in R.
+This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Formal variable definitions are provided in Appendix~\ref{vars}. Controls include $SIZE^{std}$ and $LOSS$, each interacted with $UE$. ***, **, * indicate (two-tailed) significance at the 1\%, 5\%, and 10\% levels, respectively. $t$-statistics in parentheses. Standard errors are clustered by firm and fiscal year-quarter. Created using fixest + modelsummary in R.
 \end{tabular}
 }
 \end{table}
