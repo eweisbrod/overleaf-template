@@ -185,7 +185,7 @@ textfont = bf, labelsep=newline]{caption}
 
 \bigskip
 
-\noindent \textbf{Keywords:} earnings announcements, event study, SUE, teaching template.
+\noindent \textbf{Keywords:} earnings announcements, event study, UE, teaching template.
 \end{abstract}
 \end{singlespace}
 
@@ -203,7 +203,7 @@ textfont = bf, labelsep=newline]{caption}
 
 This document is a \LaTeX\ template for an academic paper formatted for potential publication in Accounting or Finance. It is one of several teaching resources hosted at \url{https://github.com/eweisbrod/example-project}, which is the central hub for an end-to-end empirical research workflow. The hub repository contains the JOSE paper describing the project, links to the companion code templates, and this Overleaf template. If you are reading this as a PDF, a live, editable version of this document is available at \url{https://www.overleaf.com/read/ctmwnmdcypzh}.
 
-The example analysis is an earnings announcement event study. We compute unexpected earnings (SUE), defined as the seasonal change in quarterly income scaled by prior-quarter market value of equity, in the spirit of the long literature documenting the market's reaction to quarterly earnings news \citep{ball1968empirical,beaver1968information,bernard1989post}. We then test whether the three-day buy-and-hold abnormal return ($BHAR$) around the earnings announcement is amplified when the direction of the sales change agrees with the direction of the earnings change --- our $SameSign$ interaction.
+The example analysis is an earnings announcement event study. We compute unexpected earnings (UE), defined as the seasonal change in quarterly income scaled by prior-quarter market value of equity, in the spirit of the long literature documenting the market's reaction to quarterly earnings news \citep{ball1968empirical,beaver1968information,bernard1989post}. We then test whether the three-day buy-and-hold abnormal return ($BHAR$) around the earnings announcement is amplified when the direction of the sales change agrees with the direction of the earnings change --- our $SameSign$ interaction.
 
 % --- Citation examples ---
 % The biblatex-chicago package supports several citation commands. To add a new
@@ -254,10 +254,10 @@ Our sample is constructed from Compustat quarterly fundamentals (\texttt{comp.fu
 \subsection{Variable Construction}\label{sec:variables}
 
 We define unexpected earnings as the seasonal change in quarterly income before extraordinary items, scaled by the prior-quarter market value of equity:
-\begin{equation}\small \label{eq:sue}
+\begin{equation}\small \label{eq:ue}
 SUE_{i,q} = \frac{IBQ_{i,q} - IBQ_{i,q-4}}{MVE_{i,q-1}},
 \end{equation}
-where $IBQ_{i,q}$ is firm $i$'s Compustat quarterly income before extraordinary items in fiscal quarter $q$ and $MVE_{i,q-1}$ is its end-of-prior-quarter market value of equity (computed as $cshoq \times prccq$). Scaling by dollar market value avoids the per-share split-adjustment complications that arise when constructing $SUE$ from earnings per share \citep[see][for the per-share formulation]{bernard1989post}. The interaction variable $SameSign_{i,q}$ is an indicator equal to one when $\textit{sign}(IBQ_{i,q} - IBQ_{i,q-4}) = \textit{sign}(SALEQ_{i,q} - SALEQ_{i,q-4})$ and zero otherwise. Formal definitions of all variables, including the controls, are provided in Appendix~\ref{vars}.
+where $IBQ_{i,q}$ is firm $i$'s Compustat quarterly income before extraordinary items in fiscal quarter $q$ and $MVE_{i,q-1}$ is its end-of-prior-quarter market value of equity (computed as $cshoq \times prccq$). Scaling by dollar market value avoids the per-share split-adjustment complications that arise when constructing $UE$ from earnings per share \citep[see][for the per-share formulation]{bernard1989post}. The interaction variable $SameSign_{i,q}$ is an indicator equal to one when $\textit{sign}(IBQ_{i,q} - IBQ_{i,q-4}) = \textit{sign}(SALEQ_{i,q} - SALEQ_{i,q-4})$ and zero otherwise. Formal definitions of all variables, including the controls, are provided in Appendix~\ref{vars}.
 
 \subsection{Regression Specification}\label{sec:regression}
 
@@ -268,7 +268,7 @@ We estimate variants of the following regression to test H\ref{hyp:samesign}:
     & + A \times Controls_{i,q} + B \times FE + \epsilon_{i,q},
 \end{aligned}
 \end{equation}
-where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement (computed as the cumulative product of $1+ret$ minus the cumulative product of $1+vwretd$), $SameSign_{i,q}$ is defined above, and $Controls$ comprises $\ln(MVE)^{std}$ and $LOSS$ each interacted with $SUE$. The continuous control $\ln(MVE)$ is standardized to mean zero and unit standard deviation so that the $SUE$ main effect is interpretable as the $ERC$ for a firm of average size; binary controls are not standardized. The fixed effects ($FE$) are added cumulatively across columns: column 3 adds fiscal-year-quarter fixed effects, column 4 adds Fama-French 12 industry fixed effects, and column 5 adds the controls and their interactions. Standard errors are clustered by firm and by fiscal year-quarter following \citet{petersen2009estimating}.
+where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ trading-day window around the earnings announcement (computed as the cumulative product of $1+ret$ minus the cumulative product of $1+vwretd$), $SameSign_{i,q}$ is defined above, and $Controls$ comprises $\ln(MVE)^{std}$ and $LOSS$ each interacted with $UE$. The continuous control $\ln(MVE)$ is standardized to mean zero and unit standard deviation so that the $UE$ main effect is interpretable as the $ERC$ for a firm of average size; binary controls are not standardized. The fixed effects ($FE$) are added cumulatively across columns: column 3 adds fiscal-year-quarter fixed effects, column 4 adds Fama-French 12 industry fixed effects, and column 5 adds the controls and their interactions. Standard errors are clustered by firm and by fiscal year-quarter following \citet{petersen2009estimating}.
 
 
 \section{Results}\label{section-results}
@@ -287,7 +287,7 @@ The tables and figures included in this template are:
     \item Tables~\ref{tab:regress-r}, \ref{tab:regress-py}, and~\ref{tab:regress-stata} present the regression results (R, Python, and Stata versions).
 \end{itemize}
 
-Tables~\ref{tab:regress-r}, \ref{tab:regress-py}, and~\ref{tab:regress-stata} present the results from estimating Eq.~(\ref{eq:regression}). The significantly positive coefficient on $SUE \times SameSign$ across all specifications provides evidence consistent with H\ref{hyp:samesign}: the market reacts more strongly to earnings surprises when sales move in the same direction. Note that all three software outputs produce equivalent point estimates and standard errors --- the differences are purely in \LaTeX\ formatting.
+Tables~\ref{tab:regress-r}, \ref{tab:regress-py}, and~\ref{tab:regress-stata} present the results from estimating Eq.~(\ref{eq:regression}). The significantly positive coefficient on $UE \times SameSign$ across all specifications provides evidence consistent with H\ref{hyp:samesign}: the market reacts more strongly to earnings surprises when sales move in the same direction. Note that all three software outputs produce equivalent point estimates and standard errors --- the differences are purely in \LaTeX\ formatting.
 
 
 \section{Conclusion}\label{section-conclusion}
@@ -334,7 +334,7 @@ $BHAR_{[-1,+1]}$ & Buy-and-hold abnormal return over the three trading days cent
 \multicolumn{2}{l}{\textbf{Independent Variables}}\\
 \cmidrule{1-2}
 
-$SUE$ & Unexpected Earnings. Calculated as $(IBQ_{q} - IBQ_{q-4}) / MVE_{q-1}$, where $IBQ$ is Compustat quarterly income before extraordinary items and $MVE_{q-1}$ is prior-quarter market value of equity ($CSHOQ_{q-1} \times PRCCQ_{q-1}$). Winsorized at the 1st and 99th percentiles. \\
+$UE$ & Unexpected Earnings. Calculated as $(IBQ_{q} - IBQ_{q-4}) / MVE_{q-1}$, where $IBQ$ is Compustat quarterly income before extraordinary items and $MVE_{q-1}$ is prior-quarter market value of equity ($CSHOQ_{q-1} \times PRCCQ_{q-1}$). Winsorized at the 1st and 99th percentiles. \\
 
 $SameSign$ & An indicator variable equal to one if the sign of the seasonal earnings change ($IBQ_{q} - IBQ_{q-4}$) equals the sign of the seasonal sales change ($SALEQ_{q} - SALEQ_{q-4}$), and zero otherwise. \\
 
@@ -405,7 +405,7 @@ This figure presents the frequency of SameSign (quarters where the earnings chan
 \footnotesize
 \begin{minipage}{\textwidth}
 \begin{singlespace}
-Panel A plots the frequency of SameSign by market value quintile over time. Panel B plots the earnings response coefficient (ERC) --- the slope of BHAR on SUE --- estimated separately for each year, split by SameSign.
+Panel A plots the frequency of SameSign by market value quintile over time. Panel B plots the earnings response coefficient (ERC) --- the slope of BHAR on UE --- estimated separately for each year, split by SameSign.
 \end{singlespace}
 \end{minipage}
 \end{figure}
@@ -421,7 +421,7 @@ Panel A plots the frequency of SameSign by market value quintile over time. Pane
 \footnotesize
 \begin{minipage}{16cm}
 \begin{singlespace}
-This figure presents cumulative buy-and-hold abnormal returns (BHARs) over the $[-5,+5]$ trading-day window around earnings announcements, split by SUE direction (positive vs.\ negative) and SameSign (solid = same sign, dashed = different sign).
+This figure presents cumulative buy-and-hold abnormal returns (BHARs) over the $[-5,+5]$ trading-day window around earnings announcements, split by UE direction (positive vs.\ negative) and SameSign (solid = same sign, dashed = different sign).
 \end{singlespace}
 \end{minipage}
 \end{center}
@@ -452,7 +452,7 @@ This figure presents cumulative buy-and-hold abnormal returns (BHARs) over the $
 6 & Less: Obs without CRSP SIC code, or in financial (SIC 60--69) or utility (SIC 49) industries. & \multicolumn{1}{r}{769,606} & \multicolumn{1}{r}{(223,510)} \\
 7 & Less: Obs without a valid seasonal lag (missing same-quarter-prior-year data or non-12-month gap). & \multicolumn{1}{r}{677,278} & \multicolumn{1}{r}{(92,328)} \\
 8 & Less: Penny stocks (prior-quarter share price $\leq$ \$1). & \multicolumn{1}{r}{637,265} & \multicolumn{1}{r}{(40,013)} \\
-9 & Less: Obs with missing data required for the regression (SUE, SameSign, market value, or incomplete $[-1,+1]$ BHAR window). & \multicolumn{1}{r}{617,494} & \multicolumn{1}{r}{(19,771)} \\
+9 & Less: Obs with missing data required for the regression (UE, SameSign, market value, or incomplete $[-1,+1]$ BHAR window). & \multicolumn{1}{r}{617,494} & \multicolumn{1}{r}{(19,771)} \\
 
  & \textbf{Regression Sample} & \multicolumn{1}{r}{\textbf{617,494}} & \\
 \bottomrule
@@ -575,7 +575,7 @@ column{2-9}={}{halign=r},
 }
 & N & Mean & SD & Min & P25 & Median & P75 & Max \\
 $BHAR_{[-1,+1]}$ & 617,494 & 0.001 & 0.098 & -0.990 & -0.041 & -0.001 & 0.039 & 6.395 \\
-$SUE$ & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
+$UE$ & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
 $SameSign$ & 617,494 & 0.666 & 0.472 & 0.000 & 0.000 & 1.000 & 1.000 & 1.000 \\
 $LOSS$ & 617,494 & 0.303 & 0.460 & 0.000 & 0.000 & 0.000 & 1.000 & 1.000 \\
 $\ln(MVE)$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
@@ -611,7 +611,7 @@ This table provides descriptive statistics for the regression sample. Variables 
   & N & Mean & SD & Min & P25 & Median & P75 & Max \\
 \midrule\addlinespace[2.5pt]
 $BHAR_{[-1,+1]}$ & 617,494 & 0.001 & 0.098 & -0.990 & -0.041 & -0.001 & 0.039 & 6.395 \\
-$SUE$ & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
+$UE$ & 617,494 & -0.001 & 0.067 & -0.336 & -0.009 & 0.001 & 0.009 & 0.310 \\
 $SameSign$ & 617,494 & 0.666 & 0.472 & 0.000 & 0.000 & 1.000 & 1.000 & 1.000 \\
 $LOSS$ & 617,494 & 0.303 & 0.460 & 0.000 & 0.000 & 0.000 & 1.000 & 1.000 \\
 $\ln(MVE)$ & 617,494 & 5.613 & 2.211 & 1.248 & 3.952 & 5.487 & 7.114 & 11.219 \\
@@ -647,7 +647,7 @@ This table provides descriptive statistics for the regression sample. Variables 
                 &    N&     Mean&       SD&      Min&      P25&   Median&      P75&      Max\\
 \midrule
 $BHAR_{[-1,+1]}$&  617,494&    0.001&    0.098&   -0.990&   -0.041&   -0.001&    0.039&    6.395\\
-$SUE$           &  617,494&   -0.001&    0.067&   -0.336&   -0.009&    0.001&    0.009&    0.310\\
+$UE$           &  617,494&   -0.001&    0.067&   -0.336&   -0.009&    0.001&    0.009&    0.310\\
 $SameSign$      &  617,494&    0.666&    0.472&    0.000&    0.000&    1.000&    1.000&    1.000\\
 $LOSS$          &  617,494&    0.303&    0.460&    0.000&    0.000&    0.000&    1.000&    1.000\\
 $\ln(MVE)$      &  617,494&    5.613&    2.211&    1.248&    3.952&    5.487&    7.114&   11.219\\
@@ -685,9 +685,9 @@ hline{7}={1-6}{solid, black, 0.1em},
 column{1}={}{halign=l},
 column{2-6}={}{halign=r},
 }
-& $BHAR_{[-1,+1]}$ & $SUE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+& $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
 $BHAR_{[-1,+1]}$ & 1 & .12 & .06 & -.11 & -.01 \\
-$SUE$ & .19 & 1 & .01 & -.25 & .02 \\
+$UE$ & .19 & 1 & .01 & -.25 & .02 \\
 $SameSign$ & .07 & .22 & 1 & -.19 & .04 \\
 $LOSS$ & -.13 & -.34 & -.19 & 1 & -.20 \\
 $\ln(MVE)$ & .03 & .01 & .04 & -.20 & 1 \\
@@ -719,10 +719,10 @@ This table provides Pearson (Spearman) correlations above (below) the diagonal. 
 % Math mode variable names added manually (great_tables auto-escapes).
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrr}
 \toprule
-  & $BHAR_{[-1,+1]}$ & $SUE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+  & $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
 \midrule\addlinespace[2.5pt]
 $BHAR_{[-1,+1]}$ & 1.000 & 0.120 & 0.056 & -0.110 & -0.008 \\
-$SUE$ & 0.120 & 1.000 & 0.012 & -0.248 & 0.021 \\
+$UE$ & 0.120 & 1.000 & 0.012 & -0.248 & 0.021 \\
 $SameSign$ & 0.056 & 0.012 & 1.000 & -0.188 & 0.040 \\
 $LOSS$ & -0.110 & -0.248 & -0.188 & 1.000 & -0.203 \\
 $\ln(MVE)$ & -0.008 & 0.021 & 0.040 & -0.203 & 1.000 \\
@@ -756,10 +756,10 @@ This table provides Pearson correlations. Variables are as defined in Appendix~\
 % Variable labels added manually (Stata uses raw variable names by default).
 \begin{tabular}{l*{5}{c}}
 \toprule
-          & $BHAR_{[-1,+1]}$ & $SUE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
+          & $BHAR_{[-1,+1]}$ & $UE$ & $SameSign$ & $LOSS$ & $\ln(MVE)$ \\
 \midrule
 $BHAR_{[-1,+1]}$ & 1.000 &       &       &       &       \\
-$SUE$            & 0.120 & 1.000 &       &       &       \\
+$UE$            & 0.120 & 1.000 &       &       &       \\
 $SameSign$       & 0.056 & 0.012 & 1.000 &       &       \\
 $LOSS$           & -0.110 & -0.248 & -0.188 & 1.000 &       \\
 $\ln(MVE)$       & -0.008 & 0.021 & 0.040 & -0.203 & 1.000 \\
@@ -799,11 +799,11 @@ column{2-6}={}{halign=c},
 column{1}={}{halign=l},
 }
 & Base & Interaction & Year FE & Two-Way FE & Controls \\
-$SUE$ & 0.176\sym{***} & 0.097\sym{***} & 0.096\sym{***} & 0.095\sym{***} & 0.165\sym{***} \\
+$UE$ & 0.176\sym{***} & 0.097\sym{***} & 0.096\sym{***} & 0.095\sym{***} & 0.165\sym{***} \\
 & (22.252) & (11.931) & (12.222) & (12.203) & (20.427) \\
 $SameSign$ &  & 0.012\sym{***} & 0.011\sym{***} & 0.011\sym{***} & 0.008\sym{***} \\
 &  & (23.958) & (24.307) & (23.846) & (18.091) \\
-$SUE \times SameSign$ &  & 0.128\sym{***} & 0.133\sym{***} & 0.133\sym{***} & 0.111\sym{***} \\
+$UE \times SameSign$ &  & 0.128\sym{***} & 0.133\sym{***} & 0.133\sym{***} & 0.111\sym{***} \\
 &  & (10.324) & (12.234) & (12.373) & (11.477) \\
 Year FE &  &  & X & X & X \\
 Industry FE &  &  &  & X & X \\
@@ -818,7 +818,7 @@ $R^2$ Within &  &  & 0.019 & 0.019 & 0.030 \\
 \flushleft
 \begin{tabular}{@{}p{\linewidth}@{}}
 \footnotesize
-This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Formal variable definitions are provided in Appendix~\ref{vars}. Controls include $\ln(MVE)^{std}$ and $LOSS$, each interacted with $SUE$. ***, **, * indicate (two-tailed) significance at the 1\%, 5\%, and 10\% levels, respectively. $t$-statistics in parentheses. Standard errors are clustered by firm and fiscal year-quarter. Created using fixest + modelsummary in R.
+This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Formal variable definitions are provided in Appendix~\ref{vars}. Controls include $\ln(MVE)^{std}$ and $LOSS$, each interacted with $UE$. ***, **, * indicate (two-tailed) significance at the 1\%, 5\%, and 10\% levels, respectively. $t$-statistics in parentheses. Standard errors are clustered by firm and fiscal year-quarter. Created using fixest + modelsummary in R.
 \end{tabular}
 }
 \end{table}
@@ -844,11 +844,11 @@ This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Fo
  & (1) & (2) & (3) & (4) & (5) \\
 \midrule
 \addlinespace[1ex]
-$SUE$ & \makecell{0.176*** \\ (22.25)} & \makecell{0.097*** \\ (11.93)} & \makecell{0.096*** \\ (12.22)} & \makecell{0.095*** \\ (12.20)} & \makecell{0.165*** \\ (20.43)} \\
+$UE$ & \makecell{0.176*** \\ (22.25)} & \makecell{0.097*** \\ (11.93)} & \makecell{0.096*** \\ (12.22)} & \makecell{0.095*** \\ (12.20)} & \makecell{0.165*** \\ (20.43)} \\
 \addlinespace[0.5ex]
 $SameSign$ &  & \makecell{0.012*** \\ (23.96)} & \makecell{0.011*** \\ (24.31)} & \makecell{0.011*** \\ (23.85)} & \makecell{0.008*** \\ (18.09)} \\
 \addlinespace[0.5ex]
-$SUE$ $\times$ $SameSign$ &  & \makecell{0.128*** \\ (10.32)} & \makecell{0.133*** \\ (12.23)} & \makecell{0.133*** \\ (12.37)} & \makecell{0.111*** \\ (11.48)} \\
+$UE$ $\times$ $SameSign$ &  & \makecell{0.128*** \\ (10.32)} & \makecell{0.133*** \\ (12.23)} & \makecell{0.133*** \\ (12.37)} & \makecell{0.111*** \\ (11.48)} \\
 \addlinespace[0.5ex]
 \midrule
 \addlinespace[1ex]
@@ -894,11 +894,11 @@ This table reports the same regression as Tables~\ref{tab:regress-r} and~\ref{ta
                 &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}&\multicolumn{1}{c}{(4)}&\multicolumn{1}{c}{(5)}\\
                 &\multicolumn{1}{c}{Base}&\multicolumn{1}{c}{Interaction}&\multicolumn{1}{c}{Year FE}&\multicolumn{1}{c}{Two-Way FE}&\multicolumn{1}{c}{Controls}\\
 \midrule
-SUE             &    0.176\sym{$^{***}$}&    0.097\sym{$^{***}$}&    0.096\sym{$^{***}$}&    0.095\sym{$^{***}$}&    0.165\sym{$^{***}$}\\
+UE             &    0.176\sym{$^{***}$}&    0.097\sym{$^{***}$}&    0.096\sym{$^{***}$}&    0.095\sym{$^{***}$}&    0.165\sym{$^{***}$}\\
                 &  (22.25)              &  (11.93)              &  (12.22)              &  (12.20)              &  (20.43)              \\
 $SameSign$      &                       &    0.012\sym{$^{***}$}&    0.011\sym{$^{***}$}&    0.011\sym{$^{***}$}&    0.008\sym{$^{***}$}\\
                 &                       &  (23.96)              &  (24.31)              &  (23.85)              &  (18.09)              \\
-$SUE \times SameSign$&                       &    0.128\sym{$^{***}$}&    0.133\sym{$^{***}$}&    0.133\sym{$^{***}$}&    0.111\sym{$^{***}$}\\
+$UE \times SameSign$&                       &    0.128\sym{$^{***}$}&    0.133\sym{$^{***}$}&    0.133\sym{$^{***}$}&    0.111\sym{$^{***}$}\\
                 &                       &  (10.32)              &  (12.23)              &  (12.37)              &  (11.48)              \\
 Year FE         &       No              &       No              &      Yes              &      Yes              &      Yes              \\
 Industry FE     &       No              &       No              &       No              &      Yes              &      Yes              \\
