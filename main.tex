@@ -71,7 +71,7 @@
 \usepackage{threeparttablex}
 \usepackage{adjustbox}
 \usepackage{wrapfig}
-\usepackage{inconsolata}
+\usepackage[scaled=0.85]{FiraMono}
 
 \usepackage{epigraph}
 \renewcommand{\epigraphflush}{center}
@@ -197,7 +197,11 @@ textfont = bf, labelsep=newline]{caption}
 
 \thispagestyle{empty}
 \clearpage\newpage
-\setcounter{page}{1}
+% Switch to arabic numbering for the body. Using \pagenumbering{arabic}
+% (instead of \setcounter{page}{1}) avoids the duplicate-PDF-anchor
+% warning hyperref otherwise prints because the title page and the
+% first body page both end up internally labeled "page.1".
+\pagenumbering{arabic}
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
 
@@ -216,7 +220,7 @@ The example analysis is an earnings announcement event study. We compute unexpec
 % inside the @article{...}) is what you pass to \citet{} or \citep{}.
 % Use \citet{} for in-text citations and \citep{} for parenthetical citations.
 
-The intent of this template is twofold. First, the example illustrates several common \LaTeX\ patterns used in accounting and finance papers: in-text citations such as \citet{bernard1989post}, parenthetical citations such as those in the prior paragraph, citations with a prefix such as \citep[see][p.~37]{petersen2009estimating}, and possessive forms such as \citepos{bernard1989post} finding that prices underreact to earnings news. Citations with three or more authors collapse to ``\textit{et al.}'' on the second mention --- for example, \citet{bentley2018disentangling} expands fully on its first appearance and shortens to ``Bentley et al.''~thereafter.\footnote{Two-author papers always show both authors. The behavior is controlled by \texttt{maxnames=2} in the \texttt{biblatex-chicago} options and the \texttt{\textbackslash AtEveryCitekey} hook in the preamble, which expands the first occurrence of each key.}
+The intent of this template is twofold. First, the example illustrates several common \LaTeX\ patterns used in accounting and finance papers: in-text citations such as \citet{bernard1989post}, parenthetical citations such as those in the prior paragraph, citations with a prefix such as \citep[see][p.~37]{petersen2009estimating}, and possessive forms such as \citepos{bernard1989post} finding that prices underreact to earnings news. Citations with three or more authors collapse to ``\textit{et al.}'' on the second mention --- for example, \citet{bentley2018disentangling} expands fully on its first appearance and shortens to ``Bentley et al.''~thereafter.\footnote{Two-author papers always show both authors. The behavior is controlled by \texttt{maxnames=2} in the \texttt{biblatex-chicago} options and the \texttt{AtEveryCitekey} hook in the preamble, which expands the first occurrence of each key.}
 
 Second, the supporting code templates demonstrate a reproducible empirical pipeline that satisfies modern data and code sharing requirements, including the Journal of Accounting Research (JAR) Data and Code Sharing Policy. That policy requires authors to provide (i) the code that converts raw data into the final analytical dataset and produces the reported tables, (ii) a comprehensive log file documenting the execution of that code end-to-end, and (iii) the identifiers (e.g., \texttt{gvkey}, \texttt{permno}) of the observations comprising the final sample. The pipeline produces all three artifacts automatically. The companion \texttt{run-all} master scripts (\texttt{run-all.R} for the R-only template and \texttt{run-all.py} for the polyglot template) write a date-stamped log capturing every line of executed code along with its output, save the regression-sample identifiers as both parquet and CSV, and report the modification dates and sizes of all raw and derived data files for full provenance.
 
