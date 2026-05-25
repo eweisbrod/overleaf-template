@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this template, please cite it as below."
+title: "overleaf-template: A LaTeX manuscript template for empirical business research"
+abstract: "A LaTeX manuscript template demonstrating the table and figure outputs of project-template, configured for use with Overleaf for real-time multi-author editing. Includes biblatex-chicago citations, hypothesis-numbering conventions, and a section structure suitable for academic journals."
+authors:
+  - family-names: Weisbrod
+    given-names: Eric H.
+    orcid: "https://orcid.org/0000-0002-8814-250X"
+    affiliation: "School of Business, University of Kansas"
+type: software
+license: CC-BY-4.0
+url: "https://github.com/eweisbrod/overleaf-template"
+repository-code: "https://github.com/eweisbrod/overleaf-template"
+keywords:
+  - LaTeX
+  - reproducible research
+  - empirical research
+  - accounting
+  - finance
+  - Overleaf
+  - manuscript template
+  - biblatex-chicago
