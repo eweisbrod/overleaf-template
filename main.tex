@@ -11,7 +11,7 @@
 % Code template:         https://github.com/eweisbrod/project-template
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[english,authoryear,IEEEtran,12pt]{article}
+\documentclass[english,12pt]{article}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsfonts}
@@ -258,7 +258,7 @@ Our sample is constructed from Compustat quarterly fundamentals (\texttt{comp.fu
 \subsection{Variable Construction}\label{sec:variables}
 
 We define unexpected earnings as the seasonal change in quarterly income before extraordinary items, scaled by the prior-quarter market value of equity:
-\begin{equation}\small \label{eq:ue}
+\begin{equation}\label{eq:ue}
 SUE_{i,q} = \frac{IBQ_{i,q} - IBQ_{i,q-4}}{MVE_{i,q-1}},
 \end{equation}
 where $IBQ_{i,q}$ is firm $i$'s Compustat quarterly income before extraordinary items in fiscal quarter $q$ and $MVE_{i,q-1}$ is its end-of-prior-quarter market value of equity (computed as $cshoq \times prccq$). Scaling by dollar market value avoids the per-share split-adjustment complications that arise when constructing $UE$ from earnings per share \citep[see][for the per-share formulation]{bernard1989post}. The interaction variable $SameSign_{i,q}$ is an indicator equal to one when $\textit{sign}(IBQ_{i,q} - IBQ_{i,q-4}) = \textit{sign}(SALEQ_{i,q} - SALEQ_{i,q-4})$ and zero otherwise. Formal definitions of all variables, including the controls, are provided in Appendix~\ref{vars}.
@@ -266,7 +266,7 @@ where $IBQ_{i,q}$ is firm $i$'s Compustat quarterly income before extraordinary 
 \subsection{Regression Specification}\label{sec:regression}
 
 We estimate variants of the following regression to test H\ref{hyp:samesign}:
-\begin{equation}\small \label{eq:regression}
+\begin{equation}\label{eq:regression}
 \begin{aligned}
     BHAR_{i,q} = {} & \alpha + \beta_1 SUE_{i,q} + \beta_2 SameSign_{i,q} + \beta_3 SUE_{i,q} \times SameSign_{i,q} \\
     & + A \times Controls_{i,q} + B \times FE + \epsilon_{i,q},
