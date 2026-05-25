@@ -278,7 +278,7 @@ where $BHAR_{i,q}$ is the buy-and-hold abnormal return over the $[-1,+1]$ tradin
 The tables and figures included in this template are:
 \begin{itemize}
     \item Figure~\ref{fig:ff12} plots SameSign frequency by Fama-French 12 industry.
-    \item Figure~\ref{fig:yearly} plots SameSign by size quintile and the year-by-year ERC.
+    \item Figure~\ref{fig:yearly} plots SameSign by size quintile and the year-by-year ERC using a side-by-side (horizontal) two-panel layout. Figure~\ref{fig:yearly-vertical} shows the same content in a stacked (vertical) two-panel layout so users can compare the two layout patterns and pick whichever fits their plots.
     \item Figure~\ref{fig:car} plots cumulative abnormal returns over the event window.
     \item Table~\ref{tab:sample-selection} presents the sample selection procedure.
     \item Tables~\ref{tab:freq-r} and~\ref{tab:freq-stata} present the frequency of SameSign by decade (R and Stata versions).
@@ -412,7 +412,34 @@ Panel A plots the frequency of SameSign by market value quintile over time. Pane
 
 \clearpage\newpage
 
-% FIGURE 3: Event Study CAR
+% FIGURE 3: Same content as Figure 2 but with a VERTICAL panel layout.
+% Provided as a template example so users can pick whichever layout fits
+% the content. Vertical (stacked) panelling lets each panel use ~90% of
+% textwidth, which is much easier to read for plots with many tick
+% marks, dense legends, or text-heavy axes. Horizontal side-by-side
+% (Figure 2) is preferable when the visual comparison BETWEEN the two
+% panels is the main message and the plots have minimal axis text.
+\begin{figure}[h!t!b]
+\captionsetup{font=normal}
+\caption{\textbf{Time Series (Vertical Panel Layout)}}%
+\label{fig:yearly-vertical}%
+\centering
+\subfloat[SameSign Frequency by Size Quintile Over Time]{%
+  \includegraphics[width=0.9\textwidth]{figures/size_year.pdf}}\\[1ex]
+\subfloat[Year-by-Year ERC with Confidence Bands]{%
+  \includegraphics[width=0.9\textwidth]{figures/erc_year.pdf}}
+\par\medskip
+\footnotesize
+\begin{minipage}{\textwidth}
+\begin{singlespace}
+This figure shows the same two panels as Figure~\ref{fig:yearly} but in a vertical (stacked) layout. Panel A plots the frequency of SameSign by market value quintile over time. Panel B plots the earnings response coefficient (ERC) --- the slope of BHAR on UE --- estimated separately for each year, split by SameSign.
+\end{singlespace}
+\end{minipage}
+\end{figure}
+
+\clearpage\newpage
+
+% FIGURE 4: Event Study CAR
 \begin{figure}[h!tb]
 \captionsetup{font=normal}
 \caption{\textbf{Cumulative Abnormal Returns Around Earnings Announcements}}\label{fig:car}
