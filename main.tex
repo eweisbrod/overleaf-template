@@ -225,7 +225,9 @@ The earnings response coefficient ($ERC$) measures the market's reaction per uni
 
 \subsection{Sales Confirmation as a Quality Signal}\label{sec:sales-confirmation}
 
-We hypothesize that earnings news is more informative about firm value when the change in sales agrees with the change in earnings. The intuition is that an earnings increase accompanied by a sales increase reflects genuine demand growth and is therefore expected to be more persistent, whereas an earnings increase without sales growth may reflect cost cutting or accrual management and may be more transient. We refer to this binary co-movement signal as $SameSign$:
+A long line of work disaggregates the earnings signal into its sales and expense (or sales and profit-margin) components and finds that investors weight these components differently. \citet{swaminathan1991information} establish that the revenue and expense components of an earnings surprise have separately measurable information content, and \citet{lev1993fundamental} show that a broader set of fundamental signals --- including sales-related variables --- carries pricing-relevant information beyond bottom-line earnings. \citet{ertimur2003differential} document that the market reaction to a revenue surprise is, on average, larger than the reaction to an expense surprise of comparable magnitude, and \citet{jegadeesh2006revenue} show that revenue surprises predict subsequent stock returns even after controlling for earnings surprises, consistent with the market under-reacting to the sales component. \citet{rees2007effect} and \citet{keung2010supplementary} extend this evidence to settings where firms meet or beat analysts' revenue forecasts in addition to their earnings forecasts and where analysts supplement earnings forecasts with explicit sales forecasts; in both settings investors place additional weight on the sales channel. \citet{cheng2020analyst} synthesize this stream by showing analysts and investors apply distinct weights to the sales and profit-margin components of forecast earnings.\footnote{The exact specifications differ across studies --- some compare top-line revenue surprises with expense surprises \citep{ertimur2003differential, jegadeesh2006revenue}, others condition on meeting or beating sales forecasts \citep{rees2007effect, keung2010supplementary}, and others examine analysts' decomposition into sales and margins \citep{cheng2020analyst} --- but they share the common premise that the sales channel carries independent information about earnings quality.}
+
+\citet{ghosh2005sustained} is the closest precedent for our hypothesis: they show that firms with sustained joint growth in both earnings and sales exhibit larger earnings response coefficients than firms whose earnings growth is not accompanied by sales growth, consistent with sales-confirmed earnings being perceived as more persistent.\footnote{\citet{ghosh2005sustained} use a multi-year sustained-growth classification; we use a quarterly same-direction indicator. Our $SameSign$ measure can be viewed as the high-frequency, single-quarter analogue of their sustained-growth measure.} Building on this body of evidence, we hypothesize that quarterly earnings news is more informative about firm value when the seasonal change in sales moves in the same direction as the seasonal change in earnings. The intuition is that an earnings increase accompanied by a sales increase reflects genuine demand growth and is therefore expected to be more persistent, whereas an earnings increase without sales growth may reflect cost cutting or accrual management and may be more transient. We refer to this binary co-movement signal as $SameSign$:
 
 % The hyp environment (defined in the preamble via ntheorem) auto-numbers
 % hypotheses. The label inside [] sets the display, and \label{} makes the
@@ -386,12 +388,23 @@ This figure presents the frequency of SameSign (quarters where the earnings chan
 \caption{\textbf{Time Series}}%
 \label{fig:yearly}%
 \centering
-\subfloat[SameSign Frequency by Size Quintile Over Time]{\includegraphics[width=0.48\textwidth]{figures/size_year.pdf}}\hfill
-\subfloat[Year-by-Year ERC with Confidence Bands]{\includegraphics[width=0.48\textwidth]{figures/erc_year.pdf}}%
+% Each subfloat is wrapped in a top-aligned minipage so the two panels line up
+% at the top regardless of how the subfloat captions wrap.
+\begin{minipage}[t]{0.48\textwidth}%
+  \centering
+  \subfloat[SameSign Frequency by Size Quintile Over Time]{%
+    \includegraphics[width=\textwidth]{figures/size_year.pdf}}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}%
+  \centering
+  \subfloat[Year-by-Year ERC with Confidence Bands]{%
+    \includegraphics[width=\textwidth]{figures/erc_year.pdf}}
+\end{minipage}%
+\par\medskip
 \footnotesize
-\begin{minipage}{15.5cm}
+\begin{minipage}{\textwidth}
 \begin{singlespace}
-\vspace{-0.3in}
 Panel A plots the frequency of SameSign by market value quintile over time. Panel B plots the earnings response coefficient (ERC) --- the slope of BHAR on UE --- estimated separately for each year, split by SameSign.
 \end{singlespace}
 \end{minipage}
