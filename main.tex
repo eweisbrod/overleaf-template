@@ -324,15 +324,37 @@ This template demonstrates how to produce a complete empirical paper using open-
 
 \section*{{\large Appendix}} \label{appendix}
 
-\begin{table}[h!t!b] \footnotesize
+% Variable Definitions table uses \supertabular (loaded in the preamble)
+% rather than a regular tabular inside a [h!t!b] float. supertabular
+% breaks naturally across page boundaries, so the appendix scales as
+% the variable list grows. \tablefirsthead / \tablehead / \tabletail /
+% \tablelasttail define the header and footer rows that repeat on each
+% page the table spans. The caption is set via \topcaption (which
+% appears once at the top of the first page).
+\footnotesize
 \setstretch{1.0}
-\captionsetup{justification=centering}
-\caption{Variable Definitions} \label{vars}
 \renewcommand{\arraystretch}{1.3}
-\begin{tabular}{p{3.8cm}p{12cm}}
-\toprule
-\multicolumn{1}{l}{Variable} & \multicolumn{1}{l}{Definition} \\
-\toprule
+
+\tablefirsthead{%
+  \toprule
+  \multicolumn{1}{l}{Variable} & \multicolumn{1}{l}{Definition} \\
+  \toprule}
+
+\tablehead{%
+  \multicolumn{2}{l}{\textit{Table~\ref{vars} continued from previous page}} \\
+  \toprule
+  \multicolumn{1}{l}{Variable} & \multicolumn{1}{l}{Definition} \\
+  \toprule}
+
+\tabletail{%
+  \midrule
+  \multicolumn{2}{r}{\textit{Continued on next page}} \\}
+
+\tablelasttail{\bottomrule}
+
+\topcaption{Variable Definitions \label{vars}}
+
+\begin{supertabular}{p{3.8cm}p{12cm}}
 
 \multicolumn{2}{l}{\textbf{Dependent Variable}}\\
 \cmidrule{1-2}
@@ -353,9 +375,50 @@ $LOSS$ & An indicator variable equal to one if quarterly income before extraordi
 
 $SIZE$ & Natural logarithm of market value of equity ($CSHOQ \times PRCCQ$). Winsorized at the 1st and 99th percentiles. In the regression, this variable is standardized to mean zero and unit standard deviation ($SIZE^{std}$). \\
 
-\bottomrule
-\end{tabular}
-\end{table}
+% ---------------------------------------------------------------------
+% PLACEHOLDER ROWS BELOW
+%
+% These are not used by the example regression; they exist purely to
+% show how the supertabular environment breaks across pages once the
+% variable list grows past a single page. Replace with your own
+% variables in your paper, or delete this whole "Additional Controls"
+% block if your project does not need a multi-page appendix.
+% ---------------------------------------------------------------------
+
+\multicolumn{2}{l}{\textbf{Additional Controls (Placeholder Examples)}}\\
+\cmidrule{1-2}
+
+$BTM$ & Book-to-Market ratio. Calculated as common equity ($CEQQ$) divided by market value of equity ($CSHOQ \times PRCCQ$), measured at the end of the prior fiscal quarter. Winsorized at the 1st and 99th percentiles. \\
+
+$LEV$ & Leverage. Total liabilities ($LTQ$) scaled by total assets ($ATQ$), measured at the end of the prior fiscal quarter. Winsorized at the 1st and 99th percentiles. \\
+
+$ROA$ & Return on Assets. Quarterly income before extraordinary items ($IBQ$) scaled by lagged total assets ($ATQ_{q-1}$). Winsorized at the 1st and 99th percentiles. \\
+
+$AGE$ & Firm age. Natural logarithm of one plus the number of years since the company's first appearance in CRSP. \\
+
+$TURNOVER$ & Average daily share turnover over the 60 trading days ending five trading days before the earnings announcement. Daily turnover is shares traded ($vol$) divided by shares outstanding ($shrout$) on CRSP. \\
+
+$VOLATILITY$ & Standard deviation of daily stock returns ($ret$) over the 60 trading days ending five trading days before the earnings announcement. Winsorized at the 1st and 99th percentiles. \\
+
+$ANALYSTS$ & Natural logarithm of one plus the number of unique analysts issuing an EPS forecast for the firm-quarter on the IBES summary file as of the month before the earnings announcement. \\
+
+$INST$ & Institutional ownership. Fraction of shares outstanding held by 13F institutional investors as of the most recent quarter-end before the earnings announcement, from the Thomson Reuters s34 file. Winsorized at the 1st and 99th percentiles. \\
+
+$BIG4$ & An indicator variable equal to one if the firm's auditor in the current fiscal year is a Big~4 audit firm (Deloitte, EY, KPMG, or PwC) per the Compustat $AU$ field, and zero otherwise. \\
+
+$ACCRUALS$ & Total accruals. Calculated as income before extraordinary items ($IBQ$) minus operating cash flows ($OANCFY$ first-differenced within the fiscal year), scaled by lagged total assets ($ATQ_{q-1}$). Winsorized at the 1st and 99th percentiles. \\
+
+$SPECITEM$ & Special items. Compustat quarterly special items ($SPIQ$) scaled by lagged total assets ($ATQ_{q-1}$). Set to zero when missing. Winsorized at the 1st and 99th percentiles. \\
+
+$LOSS\_STREAK$ & Loss streak. The number of consecutive prior fiscal quarters (up to the current quarter, inclusive) in which $IBQ$ was negative. Set to zero when the current quarter is not a loss. \\
+
+$PRIOR\_BHAR$ & Prior-period buy-and-hold abnormal return. Calculated identically to $BHAR_{[-1,+1]}$ but measured over the $[-1,+1]$ window centered on the previous quarter's earnings announcement date. Winsorized at the 1st and 99th percentiles. \\
+
+$REPORT\_LAG$ & Reporting lag. The number of calendar days between the fiscal quarter-end ($datadate$) and the earnings announcement date ($rdq$), measured in days. Winsorized at the 1st and 99th percentiles. \\
+
+$RESTATE$ & An indicator variable equal to one if the current or any prior fiscal quarter's financial statements were subsequently restated per Audit Analytics, and zero otherwise. \\
+
+\end{supertabular}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
