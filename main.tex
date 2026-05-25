@@ -156,12 +156,11 @@ textfont = bf, labelsep=newline]{caption}
 
 \begin{document}
 
-% Possessive citation for biblatex-chicago: \citepos{key} renders as
-% "Author's (Year)" -- e.g. \citepos{bernard1989post} -> "Bernard and
-% Thomas's (1989)". The older definition that lived here called
-% natbib internals (\NAT@test, \NAT@nmfmt, ...) which do not exist
-% under biblatex-chicago and were the source of four "Undefined
-% control sequence" errors at compile time.
+% Possessive citation: \citepos{key} renders as "Author's (Year)"
+% with a clickable hyperref to the bibliography entry. For example,
+% \citepos{bernard1989post} produces "Bernard and Thomas's (1989)".
+% Useful for sentences like "...follows \citepos{bernard1989post}
+% approach" without breaking the author-year flow.
 \DeclareCiteCommand{\citepos}
   {\usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
