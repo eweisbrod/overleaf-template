@@ -325,6 +325,8 @@ This template demonstrates how to produce a complete empirical paper using open-
 
 \section*{{\large Appendix}} \label{appendix}
 
+\noindent Table~\ref{vars} defines the variables used in the example regression. The final ``Additional Controls (Placeholder Examples)'' block lists variables that are \emph{not} used in any analysis in this template --- they are included only to demonstrate how the \texttt{longtable} environment continues a multi-page variable-definitions table across page boundaries with a repeating column header and a ``Continued on next page'' footer. Replace or delete that block when adapting this template to your own paper.
+
 % Variable Definitions uses longtable (loaded in the preamble) rather
 % than a regular tabular inside a [h!t!b] float. longtable breaks
 % naturally across page boundaries with caption + header + first rows
@@ -376,7 +378,7 @@ $LOSS$ & An indicator variable equal to one if quarterly income before extraordi
 
 $SIZE$ & Natural logarithm of market value of equity ($CSHOQ \times PRCCQ$). Winsorized at the 1st and 99th percentiles. In the regression, this variable is standardized to mean zero and unit standard deviation ($SIZE^{std}$). \\
 
-\multicolumn{2}{l}{\textbf{Additional Controls (Placeholder Examples)}}\\
+\multicolumn{2}{l}{\textbf{Additional Controls (Placeholder Examples --- not used in any analysis in this template)}}\\
 \cmidrule{1-2}
 
 $BTM$ & Book-to-Market ratio. Calculated as common equity ($CEQQ$) divided by market value of equity ($CSHOQ \times PRCCQ$), measured at the end of the prior fiscal quarter. Winsorized at the 1st and 99th percentiles. \\
