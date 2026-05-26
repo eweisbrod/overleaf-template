@@ -292,7 +292,7 @@ The tables and figures included in this template are:
     \item Table~\ref{tab:sample-selection} presents the sample selection procedure.
     \item Tables~\ref{tab:freq-r} and~\ref{tab:freq-stata} present the frequency of SameSign by decade (R and Stata versions).
     \item Tables~\ref{tab:descrip-r}, \ref{tab:descrip-py}, and~\ref{tab:descrip-stata} provide descriptive statistics (R, Python, and Stata versions).
-    \item Tables~\ref{tab:corr-r}, \ref{tab:corr-py}, and~\ref{tab:corr-stata} provide a correlation matrix (R, Python, and Stata versions).
+    \item Tables~\ref{tab:corr-r}, \ref{tab:corr-py}, and~\ref{tab:corr-stata} provide a correlation matrix (R, Python, and Stata versions). Tables~\ref{tab:corr-heatmap-r} and~\ref{tab:corr-heatmap-py} present the same correlations as heatmap images numbered within the table stream (rather than the figure stream), illustrating how a graphical transformation of tabular data can be labeled as a table.
     \item Tables~\ref{tab:regress-r}, \ref{tab:regress-py}, and~\ref{tab:regress-stata} present the regression results (R, Python, and Stata versions).
 \end{itemize}
 
@@ -878,7 +878,64 @@ This table provides Pearson correlations (lower triangle only). Variables are as
 \clearpage\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TABLE 10: Regression (R)
+% TABLE 10: Correlation Matrix Heatmap (R)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A heatmap image is presented as a numbered TABLE (rather than as a
+% FIGURE) because in this paper it visualizes the same information as
+% the text-based correlation matrices above (Tables 7-9). When a
+% graphical artifact is a direct transformation of tabular data, some
+% authors prefer to keep it within the table-numbering stream so it
+% reads as another view of the same content rather than as a separate
+% figure. The mechanics: \includegraphics inside a \begin{table}
+% environment, with \caption{} above the image so the table counter
+% advances and the entry shows up in \listoftables.
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Correlation Matrix Heatmap (R)} \label{tab:corr-heatmap-r}}
+
+\includegraphics[width=0.75\textwidth]{figures/corr_fig_r.pdf}
+
+\vspace{-0.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table visualizes pairwise Pearson correlations among the regression variables as a heatmap. Variables are as defined in Appendix~\ref{vars}. Each square is shaded by the magnitude and sign of the correlation (blue = positive, red = negative) and labeled with the numeric coefficient. The same correlations are reported in tabular form in Table~\ref{tab:corr-r}. Created using the \texttt{corrplot} package in R, written to PDF via the \texttt{pdf()} graphics device. Presented as a table rather than a figure because the image is a direct transformation of the underlying correlation matrix.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 11: Correlation Matrix Heatmap (Python)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[htbp]\centering\footnotesize{
+\setstretch{1.0}
+\renewcommand{\arraystretch}{1.5}
+\caption{\textbf{Correlation Matrix Heatmap (Python)} \label{tab:corr-heatmap-py}}
+
+\includegraphics[width=0.75\textwidth]{figures/corr_fig_py.pdf}
+
+\vspace{-0.5\baselineskip}
+\singlespace
+\flushleft
+\begin{tabular}{@{}p{\linewidth}@{}}
+\footnotesize
+This table visualizes pairwise Pearson correlations among the regression variables as a heatmap. Variables are as defined in Appendix~\ref{vars}. Each cell is shaded by the magnitude and sign of the correlation (blue = positive, red = negative) and labeled with the numeric coefficient. The same correlations are reported in tabular form in Table~\ref{tab:corr-py}. Created using \texttt{seaborn.heatmap} in Python with a \texttt{matplotlib} backend. Presented as a table rather than a figure because the image is a direct transformation of the underlying correlation matrix.
+\end{tabular}
+}
+\end{table}
+
+
+\clearpage\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE 12: Regression (R)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[htbp]\centering\footnotesize{
@@ -925,7 +982,7 @@ This table reports the estimated coefficients from Eq.~(\ref{eq:regression}). Fo
 \clearpage\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TABLE 11: Regression (Python)
+% TABLE 13: Regression (Python)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[htbp]\centering\footnotesize{
@@ -978,7 +1035,7 @@ This table reports the same regression as Tables~\ref{tab:regress-r} and~\ref{ta
 \clearpage\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TABLE 12: Regression (Stata)
+% TABLE 14: Regression (Stata)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[htbp]\centering\footnotesize{
